@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bowerbird — Real Estate Finally Has a Brain</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #FFFFFF;
+  --bg: #FFFFFF;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  --blue: #095BD9;
+  --blue-light: #EBF1FC;
+  --blue-50: #F0F5FF;
+  --rose: #DB3598;
+  --olive: #4A7A52;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
+  color: var(--gray-900);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  padding: 0 48px; height: 64px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--gray-100);
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--gray-900); }
+.logo svg { width: 28px; height: 29px; }
+.logo-text { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+.nav-center { display: flex; gap: 32px; }
+.nav-center a { font-size: 14px; font-weight: 400; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
+.nav-center a:hover { color: var(--gray-900); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.btn-outline { padding: 8px 20px; border-radius: 10px; border: 1px solid var(--gray-200); background: transparent; font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-800); cursor: pointer; text-decoration: none; transition: all 0.2s; }
+.btn-outline:hover { border-color: var(--gray-300); background: var(--gray-50); }
+.btn-filled { padding: 8px 20px; border-radius: 10px; border: none; background: var(--gray-900); font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500; color: white; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+.btn-filled:hover { opacity: 0.85; }
+
+/* ===== HERO ===== */
+.hero {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 140px 24px 80px; text-align: center;
+  position: relative; min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background: url('assets/images/hero-bg.jpg') center bottom / contain no-repeat;
+  }
+
+.hero-bg { transition: opacity 0.5s ease; }
+.hero-bg.focused { opacity: 0.35; }
+
+
+
+.hero-bg-fade {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%);
+}
+
+
+
+.hero > *:not(.hero-bg):not(.hero-bg-fade):not(.bubble-layer) { position: relative; z-index: 3; }
+
+.hero h1 { font-size: 44px; font-weight: 600; line-height: 1.2; color: var(--gray-900); margin-bottom: 12px; letter-spacing: -0.5px; }
+
+/* Bubble layer */
+.bubble-layer {
+  position: absolute; inset: 0; z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.bubble-layer.hidden { opacity: 0; }
+
+.speech-bubble {
+  position: absolute;
+  background: white;
+  border: 1.5px solid var(--gray-800);
+  border-radius: 18px 18px 18px 4px;
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--gray-800);
+  font-weight: 400;
+  max-width: 200px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  /* hand-drawn feel */
+  border-radius: 20px 18px 20px 4px;
+}
+
+.speech-bubble.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -7px; left: 12px;
+  width: 14px; height: 14px;
+  background: white;
+  border-bottom: 1.5px solid var(--gray-800);
+  border-left: 1.5px solid var(--gray-800);
+  transform: rotate(-45deg);
+  border-radius: 0 0 0 3px;
+}
+
+/* Wobbly hand-drawn border effect via box-shadow layers */
+.speech-bubble.right-tail {
+  border-radius: 18px 20px 4px 18px;
+}
+.speech-bubble.right-tail::before {
+  left: auto; right: 12px;
+  border: none;
+  border-bottom: 1.5px solid var(--gray-800);
+  border-right: 1.5px solid var(--gray-800);
+  border-left: none;
+  transform: rotate(45deg);
+  border-radius: 0 0 3px 0;
+}
+
+.input-container { width: 100%; max-width: 620px; margin: 0 auto 20px; }
+.input-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 999px; padding: 10px 10px 10px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s; display: flex; align-items: center; gap: 10px; }
+.input-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(9,91,217,0.08); }
+.input-field { flex: 1; border: none; background: transparent; font-family: 'Poppins',sans-serif; font-size: 15px; font-weight: 400; color: var(--gray-900); outline: none; }
+.input-field::placeholder { color: var(--gray-400); }
+.send-btn { width: 40px; height: 40px; border-radius: 12px; border: none; background: var(--blue); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+.send-btn:hover { opacity: 0.85; }
+.send-btn svg { width: 18px; height: 18px; }
+
+.category-tabs { display: flex; gap: 8px; justify-content: center; max-width: 620px; margin: 0 auto; flex-wrap: wrap; }
+.cat-tab { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--gray-200); background: var(--white); font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; color: var(--gray-600); cursor: pointer; transition: all 0.2s; user-select: none; white-space: nowrap; }
+.cat-tab:hover { border-color: var(--gray-300); background: var(--gray-50); }
+.cat-tab.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); font-weight: 500; }
+.cat-tab .cat-icon { font-size: 14px; line-height: 1; }
+
+.questions-area { max-width: 620px; margin: 0 auto; overflow: hidden; }
+.questions-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease, padding 0.45s cubic-bezier(0.4,0,0.2,1); padding-top: 0; }
+.questions-panel.open { max-height: 300px; opacity: 1; padding-top: 16px; }
+.q-card { padding: 16px 18px; border-radius: 14px; border: 1px solid var(--gray-100); background: var(--gray-50); cursor: pointer; transition: all 0.2s; text-align: left; }
+.q-card:hover { background: var(--white); border-color: var(--gray-200); }
+.q-card-text { font-size: 13px; line-height: 1.5; color: var(--gray-600); font-weight: 400; }
+.q-card-arrow { display: flex; justify-content: flex-end; margin-top: 10px; }
+.q-card-arrow svg { width: 16px; height: 16px; color: var(--gray-300); }
+
+/* ===== HIGHLIGHTS ===== */
+.highlights { border-top: 1px solid var(--gray-100); position: relative; padding: 80px 0 60px; }
+.highlights-inner { display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+.highlights-header { text-align: center; padding: 0 24px; margin-bottom: 40px; }
+.section-label { font-size: 13px; font-weight: 500; color: var(--blue); margin-bottom: 12px; }
+.section-title { font-size: 32px; font-weight: 600; line-height: 1.25; letter-spacing: -0.3px; }
+
+/* Carousel */
+.carousel-wrap { position: relative; overflow: visible; width: 100%; overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; scrollbar-width: none; scroll-snap-type: x mandatory; scroll-behavior: smooth; overscroll-behavior-x: contain; padding: 10px 0; }
+.carousel-wrap::-webkit-scrollbar { display: none; }
+
+.carousel-track {
+  display: inline-flex;
+  gap: 20px;
+  padding: 0 max(24px, calc((100vw - 280px) / 2));
+}
+
+
+/* Card image top area */
+.card-img-wrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0;
+  background: #f5f5f5;
+}
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.hl-card {
+  min-width: 280px; max-width: 280px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  cursor: default;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Compact phone */
+.phone-wrap { padding: 16px 16px 0; display: flex; justify-content: center; }
+.phone {
+  width: 170px; height: 340px;
+  background: white; border-radius: 24px;
+  border: 1.5px solid var(--gray-200);
+  overflow: hidden; position: relative;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+}
+.notch { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 56px; height: 18px; background: var(--gray-900); border-radius: 100px; z-index: 5; }
+.screen { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+
+/* Screens */
+.s-foryou { background: var(--white); padding: 32px 10px 10px; }
+.s-foryou-map { height: 40px; background: #E8E4DD; border-radius: 8px; margin-bottom: 8px; }
+.s-foryou-cards { display: flex; gap: 5px; margin-bottom: 8px; }
+.s-fy-card { width: 50%; border-radius: 10px; overflow: hidden; height: 75px; position: relative; }
+.s-fy-card-blue { background: linear-gradient(135deg, #4A8AF4, var(--blue)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.s-fy-card-blue svg { width: 22px; height: 23px; }
+.s-fy-card-blue span { font-size: 7px; color: white; font-weight: 500; }
+.s-fy-card-house { background: linear-gradient(135deg, #E8D5C4, #D4B896); }
+.fy-tag { position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.5); color: white; font-size: 6px; padding: 2px 5px; border-radius: 3px; font-weight: 500; }
+.fy-price { position: absolute; bottom: 5px; left: 5px; color: white; font-size: 10px; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.fy-specs { position: absolute; bottom: 5px; right: 5px; color: white; font-size: 6px; opacity: 0.8; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+.s-foryou-greeting { padding: 12px 3px 0; }
+.s-foryou-greeting .hey { font-size: 12px; color: var(--gray-400); font-weight: 400; }
+.s-foryou-greeting .dive { font-size: 17px; font-weight: 600; color: var(--gray-900); line-height: 1.3; }
+.s-foryou-input { display: flex; align-items: center; gap: 5px; margin-top: 10px; padding: 0 3px; }
+.s-fy-input-field { flex: 1; height: 28px; border-radius: 8px; border: 1px solid var(--gray-200); background: var(--gray-50); padding: 0 8px; font-size: 9px; color: var(--gray-400); display: flex; align-items: center; }
+.s-fy-send { width: 28px; height: 28px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.s-fy-send-bars { display: flex; gap: 1.5px; align-items: center; height: 10px; }
+.s-fy-send-bar { width: 1.5px; background: white; border-radius: 1px; }
+
+/* ===== ANIMATED HOME SCREEN (Card 1) ===== */
+.phone-half { height: auto; aspect-ratio: auto; }
+.phone-half .screen { border-radius: 0 0 18px 18px; }
+.s-home-real { padding: 0; overflow: hidden; background: #fff; display: flex; flex-direction: column; }
+.s-home-top { width: 100%; display: block; }
+.s-home-cards-area { overflow: hidden; padding: 6px 0 10px; }
+.s-home-cards-scroll { display: flex; animation: cardsSlide 10s linear infinite; }
+.s-home-cards-img { height: 80px; width: auto; flex-shrink: 0; }
+
+@keyframes cardsSlide {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.s-map { background: #EAE6DF; position: relative; }
+.s-map-road { position: absolute; background: rgba(255,255,255,0.5); }
+.s-map-green { position: absolute; background: var(--olive); opacity: 0.1; border-radius: 50%; }
+.s-map-pin { position: absolute; width: 18px; height: 18px; background: var(--blue); border-radius: 50% 50% 50% 4px; transform: rotate(-45deg); box-shadow: 0 2px 5px rgba(9,91,217,0.25); }
+.s-map-pin::after { content: ''; width: 5px; height: 5px; background: white; border-radius: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(45deg); }
+.s-map-pin.pink { background: var(--rose); width: 22px; height: 22px; box-shadow: 0 2px 8px rgba(219,53,152,0.3); z-index: 3; }
+.s-map-bubble { position: absolute; bottom: 8px; left: 7px; right: 7px; background: white; border-radius: 12px; padding: 7px 9px; font-size: 7px; line-height: 1.5; font-weight: 300; color: var(--gray-800); box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 10; }
+.s-map-bubble b { color: var(--blue); font-weight: 500; }
+
+.s-rec { background: var(--white); padding: 32px 10px 10px; }
+.s-rec-title { font-size: 11px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; }
+.s-rec-reason { font-size: 7px; line-height: 1.5; color: var(--blue); background: var(--blue-50); padding: 5px 7px; border-radius: 7px; margin-bottom: 8px; font-weight: 400; }
+.s-rec-item { display: flex; align-items: center; gap: 7px; padding: 6px 0; border-bottom: 1px solid var(--gray-100); }
+.s-rec-thumb { width: 40px; height: 40px; border-radius: 8px; flex-shrink: 0; }
+.s-rec-info .price { font-size: 10px; font-weight: 600; }
+.s-rec-info .addr { font-size: 7px; color: var(--gray-400); font-weight: 300; }
+.s-rec-info .match { font-size: 7px; color: var(--olive); font-weight: 500; margin-top: 1px; }
+
+.s-qa { background: var(--white); padding: 32px 10px 10px; }
+.s-qa-img { height: 68px; border-radius: 10px; margin-bottom: 8px; background: linear-gradient(135deg, #E8D5C4, #D4B896); }
+.s-qa-msg { padding: 6px 9px; font-size: 7px; line-height: 1.5; margin-bottom: 5px; font-weight: 400; }
+.s-qa-user { background: var(--blue); color: white; border-radius: 9px 9px 3px 9px; }
+.s-qa-ai { background: var(--gray-50); color: var(--gray-800); border-radius: 9px 9px 9px 3px; border: 1px solid var(--gray-100); }
+
+.s-voice { background: linear-gradient(180deg, #1A1A2E, #16162A); align-items: center; justify-content: center; gap: 12px; }
+.v-label { font-size: 9px; color: rgba(255,255,255,0.5); font-weight: 300; }
+.v-orb { width: 60px; height: 60px; border-radius: 50%; background: radial-gradient(circle, var(--rose) 0%, rgba(219,53,152,0.2) 70%); position: relative; }
+.v-orb::before, .v-orb::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 1px solid rgba(219,53,152,0.15); }
+.v-orb::after { inset: -18px; }
+.v-transcript { font-size: 7px; color: rgba(255,255,255,0.3); font-weight: 300; text-align: center; max-width: 130px; line-height: 1.5; }
+
+
+/* Image fade-in when active */
+.hl-card.active .card-img { animation: imgFadeIn 0.5s ease-out both; }
+@keyframes imgFadeIn {
+  from { opacity: 0.7; transform: scale(1.03); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ===== ACTIVE CARD ANIMATIONS (auto-triggered, not hover) ===== */
+
+/* Phone lift when active */
+.hl-card.active .phone { animation: phoneLift 0.6s ease-out both; }
+@keyframes phoneLift {
+  from { transform: translateY(12px); opacity: 0.7; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Voice */
+.hl-card.active .v-orb { animation: orbPulse 2s ease-in-out infinite; }
+.hl-card.active .v-orb::before { animation: orbRing 2s ease-out infinite; }
+.hl-card.active .v-orb::after { animation: orbRing 2s ease-out 0.5s infinite; }
+
+/* Map */
+.hl-card.active .s-map-pin { animation: pinBounce 0.6s ease-out both; }
+.hl-card.active .s-map-pin:nth-child(5) { animation-delay: 0.05s; }
+.hl-card.active .s-map-pin:nth-child(6) { animation-delay: 0.1s; }
+.hl-card.active .s-map-pin.pink { animation: pinBounce 0.6s ease-out 0.15s both; }
+.hl-card.active .s-map-bubble { animation: bubbleIn 0.5s ease-out 0.3s both; }
+
+/* Rec */
+.hl-card.active .s-rec-item:nth-child(2) { animation: slideInLeft 0.4s ease-out both; }
+.hl-card.active .s-rec-item:nth-child(3) { animation: slideInLeft 0.4s ease-out 0.1s both; }
+.hl-card.active .s-rec-item:nth-child(4) { animation: slideInLeft 0.4s ease-out 0.2s both; }
+
+/* QA */
+.hl-card.active .s-qa-user { animation: msgIn 0.4s ease-out 0.1s both; }
+.hl-card.active .s-qa-ai { animation: msgIn 0.4s ease-out 0.35s both; }
+
+/* ForYou */
+.hl-card.active .s-fy-card:nth-child(1) { animation: cardPop 0.5s ease-out 0.1s both; }
+.hl-card.active .s-fy-card:nth-child(2) { animation: cardPop 0.5s ease-out 0.2s both; }
+
+@keyframes orbPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@keyframes orbRing { 0% { transform: scale(1); opacity: 0.3; } 100% { transform: scale(1.4); opacity: 0; } }
+@keyframes pinBounce { 0% { transform: rotate(-45deg) translateY(0); } 40% { transform: rotate(-45deg) translateY(-5px); } 100% { transform: rotate(-45deg) translateY(0); } }
+@keyframes bubbleIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes msgIn { from { opacity: 0; transform: translateY(5px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes cardPop { 0% { transform: scale(1); } 50% { transform: scale(1.04); } 100% { transform: scale(1); } }
+
+/* Card info - compact */
+.hl-info { padding: 14px 18px 18px; }
+.hl-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 4px; line-height: 1.3; }
+.hl-info p { font-size: 12px; line-height: 1.55; color: var(--gray-400); font-weight: 300; }
+
+/* Dots */
+.carousel-dots { display: flex; justify-content: center; gap: 6px; margin-top: 28px; }
+.c-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gray-900); opacity: 0.1; transition: all 0.4s; cursor: pointer; }
+.c-dot.active { opacity: 0.45; width: 20px; border-radius: 100px; }
+
+/* ===== APP STORE CTA ===== */
+.appstore-cta { padding: 80px 24px; text-align: center; background: var(--gray-900); }
+.appstore-cta-inner { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 32px; }
+.appstore-cta-text h2 { font-size: 32px; font-weight: 600; color: white; margin-bottom: 10px; letter-spacing: -0.3px; }
+.appstore-cta-text p { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 300; }
+.appstore-badge { display: inline-flex; align-items: center; gap: 12px; padding: 14px 28px; background: white; color: var(--gray-900); border-radius: 14px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+.appstore-badge:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,255,255,0.1); }
+.appstore-badge svg path { fill: var(--gray-900); }
+.appstore-badge-sub { display: block; font-size: 10px; font-weight: 400; color: var(--gray-500); line-height: 1; letter-spacing: 0.2px; }
+.appstore-badge-main { display: block; font-size: 18px; font-weight: 600; line-height: 1.3; }
+
+.invite-form { display: flex; gap: 0; max-width: 500px; width: 100%; border-radius: 999px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
+.invite-input { flex: 1; padding: 13px 22px; border: none; outline: none; font-size: 15px; font-family: 'Poppins', sans-serif; background: white; color: var(--gray-900); min-width: 0; }
+.invite-input::placeholder { color: var(--gray-400); }
+.invite-btn { padding: 13px 30px; border: none; background: var(--primary); color: white; font-size: 14px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; white-space: nowrap; transition: background 0.2s; border-radius: 0 999px 999px 0; }
+.invite-btn:hover { background: #0747B0; }
+.invite-note { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.6); min-height: 20px; }
+.btn-appstore-nav { display: inline-flex; align-items: center; }
+
+/* ===== FOOTER ===== */
+footer { border-top: 1px solid var(--gray-100); padding: 40px 48px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; }
+.footer-left { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { display: flex; align-items: center; gap: 8px; }
+.footer-logo svg { width: 22px; height: 23px; }
+.footer-logo-text { font-size: 16px; font-weight: 600; color: var(--gray-900); }
+.footer-tagline { font-size: 13px; color: var(--gray-400); font-weight: 300; max-width: 260px; line-height: 1.6; }
+.footer-cols { display: flex; gap: 60px; }
+.footer-col h4 { font-size: 12px; font-weight: 600; color: var(--gray-900); margin-bottom: 12px; letter-spacing: 0.3px; text-transform: uppercase; }
+.footer-col a { display: block; font-size: 13px; color: var(--gray-400); text-decoration: none; font-weight: 300; margin-bottom: 8px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--gray-600); }
+.footer-bottom { width: 100%; padding-top: 24px; border-top: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray-300); font-weight: 300; }
+.footer-bottom a { color: var(--gray-300); text-decoration: none; }
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in { animation: fadeUp 0.7s ease-out both; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-center { display: none; }
+  .hero { padding: 100px 20px 40px; }
+  .hero h1 { font-size: 30px; }
+  .input-container { max-width: 100%; }
+  .category-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+  .questions-panel { grid-template-columns: 1fr; }
+  .highlights { padding: 60px 0 40px; }
+  .carousel-track { padding: 0 24px; }
+  .section-title { font-size: 26px; }
+  .hl-card { min-width: 260px; max-width: 260px; }
+  .phone { width: 150px; height: 300px; }
+  footer { padding: 32px 20px; }
+  .footer-cols { gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="logo">
+    <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 1.33664e-06 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
+    <span class="logo-text">bowerbird</span>
+  </a>
+  <div class="nav-center"><a href="#">About</a><a href="#">Blog</a></div>
+  <div class="nav-right">
+    <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" class="btn-filled btn-appstore-nav"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right:6px;vertical-align:-2px;"><path d="M12.7 12.3c-.4.8-.8 1.2-1.5 1.8-.7.5-1.3.6-1.9.6-.5 0-1.1-.2-1.7-.5-.6-.3-1-.4-1.5-.4-.5 0-1 .1-1.6.4-.5.3-1 .5-1.3.5-.8 0-1.5-.5-2.2-1.6C.3 12 0 10.8 0 9.6c0-1.3.4-2.4 1.1-3.2.7-.8 1.6-1.2 2.6-1.2.6 0 1.2.2 1.8.5.5.3.9.5 1.1.5.2 0 .6-.2 1.2-.5.7-.3 1.3-.5 1.8-.4 1.4.1 2.4.8 3 2-1.2.7-1.8 1.8-1.7 3.1 0 1.3.7 2.3 1.8 2.9zM9.7 1c0 1-.4 1.9-1 2.5-.7.8-1.6 1.2-2.5 1.1 0-1 .4-1.9 1-2.6C7.9 1.3 8.8.8 9.6.6c0 .1.1.3.1.4z" fill="white"/></svg>Download App</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-fade"></div>
+
+  <!-- Speech bubbles from characters in the illustration -->
+  <div class="bubble-layer" id="bubbleLayer">
+    <div class="speech-bubble" id="bubble0" style="bottom:22%;left:8%;">
+      Oh man, also check the food scene nearby — I'm a total foodie, gotta have tons of restaurants, especially Chinese! 🍜
+    </div>
+    <div class="speech-bubble right-tail" id="bubble1" style="bottom:35%;right:12%;">
+      How long does it usually take from offer to closing? Asking for my sanity 😅
+    </div>
+    <div class="speech-bubble" id="bubble2" style="bottom:18%;left:32%;">
+      Close to San Francisco, good school district — that's the dream!
+    </div>
+    <div class="speech-bubble right-tail" id="bubble3" style="bottom:28%;right:30%;">
+      Parks nearby? We've got two little ones who need space to run around! 🌳
+    </div>
+    <div class="speech-bubble" id="bubble4" style="bottom:40%;left:18%;">
+      I want a place with a view — mountains, water, anything but a parking lot 🏔️
+    </div>
+    <div class="speech-bubble right-tail" id="bubble5" style="bottom:12%;right:8%;">
+      Is this neighborhood safe for evening walks? I like to jog after work 🏃‍♀️
+    </div>
+  </div>
+
+  <h1 class="fade-in">Real estate finally has a brain.</h1>
+  <p class="hero-sub fade-in" style="animation-delay:0.05s;max-width:620px;font-size:17px;color:var(--gray-500);margin-top:8px;margin-bottom:28px;line-height:1.7;">Just talk to Bowerbird, your AI agent with real opinions.</p>
+  <div class="input-container fade-in" style="animation-delay:0.1s">
+    <div class="input-box">
+      <input type="text" class="input-field" placeholder="Ask me anything about buying, selling, or investing..." id="heroInput">
+      <button class="send-btn" title="Send">
+        <svg viewBox="0 0 18 18" fill="none"><path d="M3.5 9H14.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M10.5 5L14.5 9L10.5 13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="category-tabs fade-in" style="animation-delay:0.15s">
+    <button class="cat-tab" data-cat="starter" onclick="toggleCat(this)"><span class="cat-icon">🔑</span> First Home</button>
+    <button class="cat-tab" data-cat="family" onclick="toggleCat(this)"><span class="cat-icon">👨‍👩‍👧</span> Growing Family</button>
+    <button class="cat-tab" data-cat="investor" onclick="toggleCat(this)"><span class="cat-icon">📈</span> Building Wealth</button>
+    <button class="cat-tab" data-cat="seller" onclick="toggleCat(this)"><span class="cat-icon">🏡</span> Ready to Sell</button>
+  </div>
+
+  <div class="questions-area fade-in" style="animation-delay:0.2s">
+    <!-- First-time buyer -->
+    <div class="questions-panel" id="panel-starter">
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">I've never bought a home before — where do I even start?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What can I actually afford on a $120k household income?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which neighborhoods in Seattle are best for young professionals?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Show me starter homes under $650k with a short commute</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+    </div>
+
+    <!-- Growing family -->
+    <div class="questions-panel" id="panel-family">
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">We need more space — 4 bed homes near top-rated schools?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Compare Ballard vs Kirkland vs Bothell for families</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the best time to sell our condo and upgrade?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Homes with a big backyard and a park within walking distance</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+    </div>
+
+    <!-- Investor -->
+    <div class="questions-panel" id="panel-investor">
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which Seattle zip codes have the highest rental yield?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Find undervalued properties near upcoming transit projects</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Price-drop alerts for multi-family homes in the Bay Area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the cap rate trend in Capitol Hill over 3 years?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+    </div>
+
+    <!-- Seller -->
+    <div class="questions-panel" id="panel-seller">
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's my home worth right now? Give me an honest estimate.</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">When is the best time to list in my neighborhood?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What upgrades will give me the best return before selling?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Connect me with a top agent who knows my area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="highlights" id="highlightsSection">
+  <div class="highlights-inner">
+  <div class="highlights-header reveal">
+    <p class="section-label">Why Bowerbird</p>
+    <h2 class="section-title">Not your parents' home search.</h2>
+  </div>
+
+  <div class="carousel-wrap">
+    <div class="carousel-track" id="carouselTrack">
+            <!-- 1 Always On Your Side -->
+      <div class="hl-card">
+        <div class="card-img-wrap">
+          <img src="assets/images/card-01.png" alt="" class="card-img">
+        </div>
+        <div class="hl-info"><h3>Always on your side</h3><p>Backed by 15+ data layers — schools, commute, crime, flood zones, price trends, and more. So you make decisions with full confidence, not gut feelings.</p></div>
+      </div>
+
+<!-- 2 Just Talk -->
+      <div class="hl-card">
+        <div class="card-img-wrap">
+          <img src="assets/images/card-02.png" alt="" class="card-img">
+        </div>
+        <div class="hl-info"><h3>Knows your world</h3><p>Bowerbird remembers your priorities, learns your taste, and gets sharper the more you talk. It grows with you — from first search to closing day.</p></div>
+      </div>
+
+      <!-- 3 Better Understanding -->
+      <div class="hl-card">
+        <div class="card-img-wrap">
+          <img src="assets/images/card-03.png" alt="" class="card-img">
+        </div>
+        <div class="hl-info"><h3>Just talk, on the go</h3><p>Voice-first, mobile-first. Ask a question on your commute, get an answer with context. Like texting a friend who happens to know everything about real estate.</p></div>
+      </div>
+
+      <!-- 4 Proactive & Opinionated -->
+      <div class="hl-card">
+        <div class="card-img-wrap">
+          <img src="assets/images/card-04.png" alt="" class="card-img">
+        </div>
+        <div class="hl-info"><h3>Proactive, with real opinions</h3><p>Bowerbird doesn't just answer — it flags risks, spots hidden value, and tells you what it'd actually do. No sugarcoating. No commission bias.</p></div>
+      </div>
+
+      <!-- 5 Closes the Deal -->
+      <div class="hl-card">
+        <div class="card-img-wrap">
+          <img src="assets/images/card-05.png" alt="" class="card-img">
+        </div>
+        <div class="hl-info"><h3>From search to keys</h3><p>When you're ready, we connect you with top 3% local agents — vetted experts with real closing track records. Finds the home and closes the deal.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-dots" id="carouselDots">
+    <div class="c-dot active" data-i="0"></div>
+    <div class="c-dot" data-i="1"></div>
+    <div class="c-dot" data-i="2"></div>
+    <div class="c-dot" data-i="3"></div>
+    <div class="c-dot" data-i="4"></div>
+  </div><!-- carousel-dots -->
+  </div><!-- highlights-inner -->
+</section>
+
+<!-- INVITATION CTA -->
+<section class="appstore-cta">
+  <div class="appstore-cta-inner">
+    <div class="appstore-cta-text">
+      <h2 style="white-space:nowrap;">Bowerbird is live. Access is limited.</h2>
+      <p>We're letting people in gradually to keep the experience great. Drop your email for an invite — or grab it on the App Store with your access code.</p>
+    </div>
+    <div class="invite-form">
+      <input type="email" class="invite-input" placeholder="you@example.com" id="inviteEmail">
+      <button class="invite-btn" onclick="submitInvite()">Request Invite</button>
+    </div>
+    <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:12px;">
+      <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);color:white;text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.81-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on iOS
+      </a>
+    </div>
+    <p class="invite-note" id="inviteNote"></p>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF STRIP -->
+<section style="padding:40px 24px;background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100);">
+  <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;">
+    <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+      <div style="font-size:22px;margin-bottom:6px;">🏛️</div>
+      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Rockhood</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Licensed brokerage<br>WA · CA · FL · TX</div>
+    </div>
+    <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+      <div style="font-size:22px;margin-bottom:6px;">🤝</div>
+      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Top 3%</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Vetted local agents<br>backing every deal</div>
+    </div>
+    <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+      <div style="font-size:22px;margin-bottom:6px;">💬</div>
+      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">1,000+</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">People getting<br>honest answers</div>
+    </div>
+    <div style="padding:0 24px;">
+      <div style="font-size:22px;margin-bottom:6px;">❤️</div>
+      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">150+</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Happy clients<br>closed with us</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section style="padding:80px 24px;background:var(--white);text-align:center;border-top:1px solid var(--gray-100);">
+  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">How it works</p>
+  <h2 style="font-size:32px;font-weight:600;color:var(--gray-900);margin-bottom:56px;letter-spacing:-0.5px;">Three steps. Zero headaches.</h2>
+  <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;">
+    <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
+      <div style="width:52px;height:52px;border-radius:14px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;">💬</div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 01</div>
+      <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Talk to Bowerbird</h3>
+      <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Describe what you want — your dream, your goals, your questions. Voice or text, no filters needed.</p>
+    </div>
+    <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
+      <div style="width:52px;height:52px;border-radius:14px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;">🎯</div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 02</div>
+      <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Get smart matches &amp; true insights</h3>
+      <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Bowerbird finds homes that actually fit, flags the risks, and tells you things most agents won't.</p>
+    </div>
+    <div style="padding:0 40px;text-align:center;">
+      <div style="width:52px;height:52px;border-radius:14px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;">🔑</div>
+      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 03</div>
+      <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Close with a pro</h3>
+      <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">When you're ready, we pair you with a top vetted local agent to take you from offer to keys.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED IN -->
+<section style="padding:40px 24px;text-align:center;background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100);">
+  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:20px;">Featured in</p>
+  <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;opacity:0.45;">
+    <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">Inman</span>
+    <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">GeekWire</span>
+    <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">NVIDIA</span>
+  </div>
+</section>
+
+<!-- COMING SOON TEASER -->
+<section style="padding:48px 24px;text-align:center;">
+  <p style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:12px;">Coming soon</p>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;font-size:13px;color:var(--gray-400);">
+    <span>Submit offers from the app</span>
+    <span style="color:var(--gray-200);">·</span>
+    <span>Bid on unlisted properties</span>
+    <span style="color:var(--gray-200);">·</span>
+    <span>AI-powered investment deals</span>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-logo">
+      <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 0 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
+      <span class="footer-logo-text">bowerbird</span>
+    </div>
+    <p class="footer-tagline">Your AI real estate agent.</p>
+    <p style="font-size:11px;color:var(--gray-400);margin-top:8px;line-height:1.5;">Bowerbird is built by Rockhood, Inc — Licensed real estate brokerage in WA, CA, FL &amp; TX.</p>
+  </div>
+  <div class="footer-cols">
+    <div class="footer-col"><h4>Product</h4><a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank">Download for iOS</a></div>
+    <div class="footer-col"><h4>Company</h4><a href="https://rockhood.ai" target="_blank">Rockhood</a></div>
+    <div class="footer-col"><h4>Connect</h4><a href="#">X</a><a href="#">LinkedIn</a><a href="#">Instagram</a><a href="#">Contact</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Rockhood, Inc. All rights reserved.</span>
+    <div style="display:flex;gap:20px;"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+// ===== HERO TABS =====
+let activeCat = null;
+let bubblesActive = true;
+let bubbleTimer1 = null;
+let bubbleTimer2 = null;
+
+const heroBg = document.querySelector('.hero-bg');
+const bubbleLayer = document.getElementById('bubbleLayer');
+const heroInput = document.getElementById('heroInput');
+
+function pauseBubbles() {
+  bubblesActive = false;
+  bubbleLayer.classList.add('hidden');
+  clearTimeout(bubbleTimer1);
+  clearTimeout(bubbleTimer2);
+  // Hide all visible bubbles
+  document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('show'));
+}
+
+function resumeBubbles() {
+  if (bubblesActive) return;
+  bubblesActive = true;
+  bubbleLayer.classList.remove('hidden');
+  // Restart bubble cycle after a short delay
+  setTimeout(() => { if (bubblesActive) showNextBubble(); }, 800);
+}
+
+function setFocused(on) {
+  if (on) {
+    heroBg.classList.add('focused');
+    pauseBubbles();
+  } else {
+    heroBg.classList.remove('focused');
+    resumeBubbles();
+  }
+}
+
+function closeAllTabs() {
+  activeCat = null;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.questions-panel').forEach(p => p.classList.remove('open'));
+  setFocused(false);
+}
+
+function toggleCat(btn) {
+  const cat = btn.dataset.cat;
+  if (activeCat === cat) {
+    closeAllTabs();
+    return;
+  }
+  activeCat = cat;
+  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.questions-panel').forEach(p => p.classList.remove('open'));
+  const target = document.getElementById('panel-' + cat);
+  if (target) requestAnimationFrame(() => target.classList.add('open'));
+  setFocused(true);
+}
+
+function fillQ(card) {
+  const text = card.querySelector('.q-card-text').textContent.replace(/^🎙️\s*/, '').replace(/^"|"$/g, '');
+  heroInput.value = text;
+  heroInput.focus();
+}
+
+// Click outside tabs/input to close
+document.addEventListener('click', (e) => {
+  if (!activeCat) return;
+  // If click is inside input-container, category-tabs, or questions-area, do nothing
+  if (e.target.closest('.input-container') || e.target.closest('.category-tabs') || e.target.closest('.questions-area')) return;
+  closeAllTabs();
+});
+
+// Input focus/blur
+heroInput.addEventListener('focus', () => setFocused(true));
+heroInput.addEventListener('blur', () => {
+  if (!activeCat) setFocused(false);
+});
+
+// ===== BUBBLE ANIMATION =====
+const allBubbles = document.querySelectorAll('.speech-bubble');
+const totalBubbles = allBubbles.length;
+let currentBubble = 0;
+
+function showNextBubble() {
+  if (!bubblesActive) return;
+  allBubbles[currentBubble].classList.add('show');
+  bubbleTimer1 = setTimeout(() => {
+    allBubbles[currentBubble].classList.remove('show');
+    currentBubble = (currentBubble + 1) % totalBubbles;
+    bubbleTimer2 = setTimeout(() => {
+      if (bubblesActive) showNextBubble();
+    }, 800);
+  }, 3500);
+}
+
+setTimeout(() => { if (bubblesActive) showNextBubble(); }, 1500);
+
+// ===== HORIZONTAL CAROUSEL =====
+const wrap = document.querySelector('.carousel-wrap');
+const track = document.getElementById('carouselTrack');
+const cards = track.querySelectorAll('.hl-card');
+const dots = document.querySelectorAll('.c-dot');
+const cardCount = cards.length;
+let prevSnapIndex = -1;
+
+function updateActiveCard() {
+  const wrapRect = wrap.getBoundingClientRect();
+  const center = wrapRect.left + wrapRect.width / 2;
+  let closest = 0, minDist = Infinity;
+  cards.forEach((c, i) => {
+    const r = c.getBoundingClientRect();
+    const cardCenter = r.left + r.width / 2;
+    const dist = Math.abs(center - cardCenter);
+    if (dist < minDist) { minDist = dist; closest = i; }
+    // Scale & opacity by distance
+    const norm = Math.min(dist / (r.width * 1.5), 1);
+    c.style.transform = `scale(${1 - norm * 0.08})`;
+    c.style.opacity = 1 - norm * 0.6;
+  });
+  if (closest !== prevSnapIndex) {
+    prevSnapIndex = closest;
+    cards.forEach((c, i) => {
+      if (i === closest) { c.classList.remove('active'); void c.offsetWidth; c.classList.add('active'); }
+      else c.classList.remove('active');
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === closest));
+  }
+}
+
+wrap.addEventListener('scroll', updateActiveCard, { passive: true });
+
+// Dot clicks scroll to card
+dots.forEach(d => {
+  d.addEventListener('click', () => {
+    const idx = parseInt(d.dataset.i);
+    cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
+});
+
+// Init
+requestAnimationFrame(() => {
+  cards[0].classList.add('active');
+  dots[0].classList.add('active');
+  updateActiveCard();
+});
+
+// Reveal
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(el => obs.observe(el));
+
+// ===== INVITATION FORM =====
+function submitInvite() {
+  const input = document.getElementById('inviteEmail');
+  const note = document.getElementById('inviteNote');
+  const email = input.value.trim();
+  if (!email || !email.includes('@') || !email.includes('.')) {
+    note.textContent = 'Please enter a valid email address.';
+    note.style.color = '#FF6B6B';
+    return;
+  }
+  note.style.color = 'rgba(255,255,255,0.8)';
+  note.textContent = '✓ You\'re on the list! We\'ll be in touch soon.';
+  input.value = '';
+  input.blur();
+}
+</script>
+</body>
+</html>
