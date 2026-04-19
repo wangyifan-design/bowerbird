@@ -50,7 +50,9 @@ nav {
 .nav-center { display: flex; gap: 32px; }
 .nav-center a { font-size: 14px; font-weight: 400; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
 .nav-center a:hover { color: var(--gray-900); }
-.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-right .nav-link { font-size: 14px; font-weight: 400; color: var(--gray-500); text-decoration: none; transition: color 0.2s; }
+.nav-right .nav-link:hover { color: var(--gray-900); }
 .btn-outline { padding: 8px 20px; border-radius: 10px; border: 1px solid var(--gray-200); background: transparent; font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-800); cursor: pointer; text-decoration: none; transition: all 0.2s; }
 .btn-outline:hover { border-color: var(--gray-300); background: var(--gray-50); }
 .btn-filled { padding: 8px 20px; border-radius: 10px; border: none; background: var(--gray-900); font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500; color: white; cursor: pointer; text-decoration: none; transition: all 0.2s; }
@@ -76,8 +78,24 @@ nav {
 
 .hero-bg-fade {
  position: absolute; inset: 0; z-index: 1;
- background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%);
+ background: rgba(10, 15, 25, 0.88);
+ opacity: 0; transition: opacity 0.5s ease;
 }
+.hero-bg-fade.focused { opacity: 1; }
+.hero h1, .hero .hero-sub { transition: color 0.4s ease; }
+.hero.focused h1 { color: white; }
+.hero.focused .hero-sub { color: rgba(255,255,255,0.75) !important; }
+
+/* Nav inverts when hero is focused OR over a dark section */
+nav { transition: background 0.35s ease, border-color 0.35s ease; }
+.logo, .logo-text, .nav-right .nav-link, .btn-filled { transition: color 0.35s ease, background 0.35s ease, border-color 0.35s ease; }
+body.nav-on-dark nav { background: rgba(10, 15, 25, 0.6); border-bottom-color: rgba(255,255,255,0.08); }
+body.nav-on-dark .logo, body.nav-on-dark .logo-text { color: white; }
+body.nav-on-dark .nav-right .nav-link { color: rgba(255,255,255,0.75); }
+body.nav-on-dark .nav-right .nav-link:hover { color: white; }
+body.nav-on-dark .btn-filled { background: white; color: var(--gray-900); }
+body.nav-on-dark .btn-filled svg path { fill: var(--gray-900); }
+.btn-filled svg path { transition: fill 0.35s ease; }
 
 
 
@@ -107,28 +125,33 @@ nav {
 }
 
 .input-container { width: 100%; max-width: 620px; margin: 0 auto 20px; }
-.input-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 999px; padding: 10px 10px 10px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s; display: flex; align-items: center; gap: 10px; }
+.input-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 999px; padding: 5px 5px 5px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s; display: flex; align-items: center; gap: 10px; }
 .input-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(9,91,217,0.08); }
-.input-field { flex: 1; border: none; background: transparent; font-family: 'Poppins',sans-serif; font-size: 15px; font-weight: 400; color: var(--gray-900); outline: none; }
+.input-field { flex: 1; border: none; background: transparent; font-family: 'Poppins',sans-serif; font-size: 14px; font-weight: 400; color: var(--gray-900); outline: none; padding: 8px 0; }
 .input-field::placeholder { color: var(--gray-400); }
-.send-btn { width: 40px; height: 40px; border-radius: 12px; border: none; background: var(--blue); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
-.send-btn:hover { opacity: 0.85; }
-.send-btn svg { width: 18px; height: 18px; }
+.send-btn { width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--blue); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; flex-shrink: 0; }
+.send-btn:hover { opacity: 0.85; transform: scale(1.05); }
+.send-btn svg { width: 16px; height: 16px; }
 
 .category-tabs { display: flex; gap: 8px; justify-content: center; max-width: 620px; margin: 0 auto; flex-wrap: wrap; }
-.cat-tab { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--gray-200); background: var(--white); font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 400; color: var(--gray-600); cursor: pointer; transition: all 0.2s; user-select: none; white-space: nowrap; }
+.cat-tab { display: inline-grid; place-items: center; padding: 8px 16px; border-radius: 100px; border: 1px solid var(--gray-200); background: var(--white); font-family: 'Poppins',sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-600); cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; user-select: none; white-space: nowrap; }
+.cat-tab > span { grid-area: 1 / 1; transition: font-weight 0.2s, color 0.2s; }
+.cat-tab::before { content: attr(data-text); grid-area: 1 / 1; font-weight: 700; visibility: hidden; }
 .cat-tab:hover { border-color: var(--gray-300); background: var(--gray-50); }
-.cat-tab.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); font-weight: 500; }
-.cat-tab .cat-icon { font-size: 14px; line-height: 1; }
+.cat-tab:hover > span { color: var(--blue); }
+.cat-tab.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+.cat-tab.active > span { font-weight: 600; }
 
-.questions-area { max-width: 620px; margin: 0 auto; overflow: hidden; }
-.questions-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease, padding 0.45s cubic-bezier(0.4,0,0.2,1); padding-top: 0; }
-.questions-panel.open { max-height: 300px; opacity: 1; padding-top: 16px; }
-.q-card { padding: 16px 18px; border-radius: 14px; border: 1px solid var(--gray-100); background: var(--gray-50); cursor: pointer; transition: all 0.2s; text-align: left; }
-.q-card:hover { background: var(--white); border-color: var(--gray-200); }
-.q-card-text { font-size: 13px; line-height: 1.5; color: var(--gray-600); font-weight: 400; }
-.q-card-arrow { display: flex; justify-content: flex-end; margin-top: 10px; }
-.q-card-arrow svg { width: 16px; height: 16px; color: var(--gray-300); }
+.questions-area { max-width: 820px; margin: 0 auto; display: grid; grid-template-columns: 1fr; height: 0; overflow: hidden; transition: height 0.4s cubic-bezier(0.4,0,0.2,1); }
+.questions-area.has-open { height: 160px; }
+.questions-panel { grid-column: 1; grid-row: 1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; align-items: end; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity 0.28s ease, transform 0.28s ease; }
+.questions-panel.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.q-card { position: relative; padding: 16px 18px; border-radius: 14px; border: 1px solid var(--gray-100); background: var(--gray-50); cursor: pointer; text-align: left; display: flex; flex-direction: column; justify-content: flex-end; min-height: 110px; transition: min-height 0.35s cubic-bezier(0.4,0,0.2,1), background 0.2s, border-color 0.2s, box-shadow 0.2s; }
+.q-card:hover { background: var(--white); border-color: var(--gray-200); min-height: 132px; box-shadow: 0 6px 20px rgba(10,15,25,0.06); }
+.q-card::after { content: ""; position: absolute; top: 12px; right: 12px; width: 16px; height: 16px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239AA3AF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><line x1='12' y1='19' x2='12' y2='5'/><polyline points='5 12 12 5 19 12'/></svg>"); background-repeat: no-repeat; background-position: center; opacity: 0; transform: translateY(4px); transition: opacity 0.2s ease, transform 0.2s ease; pointer-events: none; }
+.q-card:hover::after { opacity: 1; transform: translateY(0); }
+.q-card-text { font-size: 13px; line-height: 1.5; color: var(--gray-600); font-weight: 400; transition: color 0.2s ease; }
+.q-card:hover .q-card-text { color: var(--blue); }
 
 /* ===== HIGHLIGHTS ===== */
 .highlights { border-top: 1px solid var(--gray-100); position: relative; padding: 80px 0 60px; }
@@ -328,30 +351,32 @@ nav {
 .invite-form { display: flex; gap: 0; max-width: 500px; width: 100%; border-radius: 999px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,0.18); }
 .invite-input { flex: 1; padding: 13px 22px; border: none; outline: none; font-size: 15px; font-family: 'Poppins', sans-serif; background: white; color: var(--gray-900); min-width: 0; }
 .invite-input::placeholder { color: var(--gray-400); }
-.invite-btn { padding: 13px 30px; border: none; background: var(--primary); color: white; font-size: 14px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; white-space: nowrap; transition: background 0.2s; border-radius: 0 999px 999px 0; }
+.invite-btn { padding: 13px 30px; border: none; background: var(--blue); color: white; font-size: 14px; font-weight: 600; font-family: 'Poppins', sans-serif; cursor: pointer; white-space: nowrap; transition: background 0.2s; border-radius: 0 999px 999px 0; }
 .invite-btn:hover { background: #0747B0; }
 .invite-note { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.6); min-height: 20px; }
 .btn-appstore-nav { display: inline-flex; align-items: center; }
 
 /* ===== FOOTER ===== */
-footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
-.footer-main { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
-.footer-left { display: flex; flex-direction: column; gap: 0; }
-.footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
-.footer-logo svg { width: 22px; height: 23px; }
-.footer-logo-text { font-size: 16px; font-weight: 600; color: var(--gray-900); }
-.footer-tagline { font-size: 13px; color: var(--gray-500); font-weight: 400; max-width: 240px; line-height: 1.6; margin-bottom: 16px; }
-.footer-contact { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; }
-.footer-contact a, .footer-contact span { font-size: 12px; color: var(--gray-400); text-decoration: none; line-height: 1.6; }
-.footer-contact a:hover { color: var(--gray-600); }
-.footer-social { display: flex; gap: 12px; margin-bottom: 20px; }
-.footer-social a { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--gray-200); color: var(--gray-400); text-decoration: none; transition: all 0.2s; }
+footer { border-top: 1px solid var(--gray-100); padding: 28px 48px 20px; }
+.footer-main { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 20px; }
+.footer-brand { display: flex; align-items: center; gap: 14px; }
+.footer-logo { display: flex; align-items: center; gap: 8px; }
+.footer-logo svg { width: 20px; height: 21px; }
+.footer-logo-text { font-size: 15px; font-weight: 600; color: var(--gray-900); }
+.footer-tagline { font-size: 12px; color: var(--gray-400); font-weight: 400; border-left: 1px solid var(--gray-200); padding-left: 14px; }
+.footer-contact-inline { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--gray-400); font-weight: 300; flex-wrap: wrap; }
+.footer-contact-inline a { color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
+.footer-contact-inline a:hover { color: var(--gray-700); }
+.footer-contact-inline .sep { color: var(--gray-200); }
+.footer-right { display: flex; align-items: center; gap: 16px; }
+.footer-social { display: flex; gap: 8px; }
+.footer-social a { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 7px; border: 1px solid var(--gray-200); color: var(--gray-400); text-decoration: none; transition: all 0.2s; }
 .footer-social a:hover { border-color: var(--gray-400); color: var(--gray-700); }
-.footer-social svg { width: 16px; height: 16px; }
-.footer-col h4 { font-size: 11px; font-weight: 600; color: var(--gray-900); margin-bottom: 14px; letter-spacing: 0.5px; text-transform: uppercase; }
-.footer-col a { display: block; font-size: 13px; color: var(--gray-400); text-decoration: none; font-weight: 300; margin-bottom: 9px; transition: color 0.2s; }
-.footer-col a:hover { color: var(--gray-700); }
-.footer-bottom { padding-top: 24px; border-top: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray-300); font-weight: 300; }
+.footer-social svg { width: 13px; height: 13px; }
+.footer-nvidia { display: inline-block; opacity: 0.5; transition: opacity 0.2s; }
+.footer-nvidia:hover { opacity: 0.85; }
+.footer-nvidia img { height: 24px; width: auto; display: block; }
+.footer-bottom { padding-top: 16px; border-top: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--gray-300); font-weight: 300; }
 .footer-bottom a { color: var(--gray-300); text-decoration: none; }
 .footer-bottom a:hover { color: var(--gray-500); }
 
@@ -367,14 +392,18 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
  .hero h1 { font-size: 30px; }
  .input-container { max-width: 100%; }
  .category-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
- .questions-panel { grid-template-columns: 1fr; }
+ .questions-panel { grid-template-columns: 1fr 1fr; }
+ .questions-area.has-open { height: 290px; }
  .highlights { padding: 60px 0 40px; }
  .carousel-track { padding: 0 24px; }
  .section-title { font-size: 26px; }
  .hl-card { min-width: 260px; max-width: 260px; }
  .phone { width: 150px; height: 300px; }
- footer { padding: 40px 20px 24px; }
- .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+ footer { padding: 24px 20px 16px; }
+ .footer-main { flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+ .footer-brand { flex-direction: column; gap: 6px; }
+ .footer-tagline { border-left: none; padding-left: 0; }
+ .footer-contact-inline { justify-content: center; }
  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
@@ -387,9 +416,9 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
  <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 1.33664e-06 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
  <span class="logo-text">bowerbird</span>
  </a>
- <div class="nav-center"><a href="#">About</a><a href="#">Blog</a></div>
  <div class="nav-right">
- <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" class="btn-filled btn-appstore-nav"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right:6px;vertical-align:-2px;"><path d="M12.7 12.3c-.4.8-.8 1.2-1.5 1.8-.7.5-1.3.6-1.9.6-.5 0-1.1-.2-1.7-.5-.6-.3-1-.4-1.5-.4-.5 0-1 .1-1.6.4-.5.3-1 .5-1.3.5-.8 0-1.5-.5-2.2-1.6C.3 12 0 10.8 0 9.6c0-1.3.4-2.4 1.1-3.2.7-.8 1.6-1.2 2.6-1.2.6 0 1.2.2 1.8.5.5.3.9.5 1.1.5.2 0 .6-.2 1.2-.5.7-.3 1.3-.5 1.8-.4 1.4.1 2.4.8 3 2-1.2.7-1.8 1.8-1.7 3.1 0 1.3.7 2.3 1.8 2.9zM9.7 1c0 1-.4 1.9-1 2.5-.7.8-1.6 1.2-2.5 1.1 0-1 .4-1.9 1-2.6C7.9 1.3 8.8.8 9.6.6c0 .1.1.3.1.4z" fill="white"/></svg>Download App</a>
+ <a href="https://rockhood.ai" target="_blank" class="nav-link">Rockhood</a>
+ <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" class="btn-filled btn-appstore-nav"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" style="margin-right:6px;vertical-align:-3px;"><path d="M17.0492 20.28C16.0692 21.23 14.9992 21.08 13.9692 20.63C12.8792 20.17 11.8792 20.15 10.7292 20.63C9.28919 21.25 8.52919 21.07 7.66919 20.28C2.78919 15.25 3.50919 7.59 9.04919 7.31C10.3992 7.38 11.3392 8.05 12.1292 8.11C13.3092 7.87 14.4392 7.18 15.6992 7.27C17.2092 7.39 18.3492 7.99 19.0992 9.07C15.9792 10.94 16.7192 15.05 19.5792 16.2C19.0092 17.7 18.2692 19.19 17.0392 20.29L17.0492 20.28ZM12.0292 7.25C11.8792 5.02 13.6892 3.18 15.7692 3C16.0592 5.58 13.4292 7.5 12.0292 7.25Z" fill="white"/></svg>Download App</a>
  </div>
 </nav>
 
@@ -447,8 +476,8 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
    <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
         <tspan x="56.0" y="23.4">I want a view —</tspan>
         <tspan x="56.0" y="32.5">mountains, water,</tspan>
-        <tspan x="56.0" y="41.6">anything but a parking</tspan>
-        <tspan x="56.0" y="50.7">lot</tspan>
+        <tspan x="56.0" y="41.6">anything but</tspan>
+        <tspan x="56.0" y="50.7">a parking lot</tspan>
    </text>
   </svg>
  </div>
@@ -469,50 +498,50 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
  <div class="input-container fade-in" style="animation-delay:0.1s">
  <div class="input-box">
  <input type="text" class="input-field" placeholder="Ask me anything about buying, selling, or investing..." id="heroInput">
- <button class="send-btn" title="Send">
+ <button class="send-btn" title="Send" onclick="document.getElementById('invite').scrollIntoView({behavior:'smooth',block:'start'})">
  <svg viewBox="0 0 18 18" fill="none"><path d="M3.5 9H14.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M10.5 5L14.5 9L10.5 13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
  </button>
  </div>
  </div>
 
  <div class="category-tabs fade-in" style="animation-delay:0.15s">
- <button class="cat-tab" data-cat="starter" onclick="toggleCat(this)"><span class="cat-icon"></span>First Home</button>
- <button class="cat-tab" data-cat="family" onclick="toggleCat(this)"><span class="cat-icon"></span>Growing Family</button>
- <button class="cat-tab" data-cat="investor" onclick="toggleCat(this)"><span class="cat-icon"></span>Building Wealth</button>
- <button class="cat-tab" data-cat="seller" onclick="toggleCat(this)"><span class="cat-icon"></span>Ready to Sell</button>
+ <button class="cat-tab" data-cat="starter" data-text="First Home" onclick="toggleCat(this)"><span>First Home</span></button>
+ <button class="cat-tab" data-cat="family" data-text="Growing Family" onclick="toggleCat(this)"><span>Growing Family</span></button>
+ <button class="cat-tab" data-cat="investor" data-text="Building Wealth" onclick="toggleCat(this)"><span>Building Wealth</span></button>
+ <button class="cat-tab" data-cat="seller" data-text="Ready to Sell" onclick="toggleCat(this)"><span>Ready to Sell</span></button>
  </div>
 
  <div class="questions-area fade-in" style="animation-delay:0.2s">
  <!-- First-time buyer -->
  <div class="questions-panel" id="panel-starter">
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">I've never bought a home before — where do I even start?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What can I actually afford on a $120k household income?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which neighborhoods in Seattle are best for young professionals?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Show me starter homes under $650k with a short commute</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">I've never bought a home before — where do I even start?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What can I actually afford on a $120k household income?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which neighborhoods in Seattle are best for young professionals?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Show me starter homes under $650k with a short commute</div></div>
  </div>
 
  <!-- Growing family -->
  <div class="questions-panel" id="panel-family">
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">We need more space — 4 bed homes near top-rated schools?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Compare Ballard vs Kirkland vs Bothell for families</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the best time to sell our condo and upgrade?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Homes with a big backyard and a park within walking distance</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">We need more space — 4 bed homes near top-rated schools?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Compare Ballard vs Kirkland vs Bothell for families</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the best time to sell our condo and upgrade?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Homes with a big backyard and a park within walking distance</div></div>
  </div>
 
  <!-- Investor -->
  <div class="questions-panel" id="panel-investor">
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which Seattle zip codes have the highest rental yield?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Find undervalued properties near upcoming transit projects</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Price-drop alerts for multi-family homes in the Bay Area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the cap rate trend in Capitol Hill over 3 years?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which Seattle zip codes have the highest rental yield?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Find undervalued properties near upcoming transit projects</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Price-drop alerts for multi-family homes in the Bay Area</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the cap rate trend in Capitol Hill over 3 years?</div></div>
  </div>
 
  <!-- Seller -->
  <div class="questions-panel" id="panel-seller">
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's my home worth right now? Give me an honest estimate.</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">When is the best time to list in my neighborhood?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What upgrades will give me the best return before selling?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
- <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Connect me with a top agent who knows my area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's my home worth right now? Give me an honest estimate.</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">When is the best time to list in my neighborhood?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What upgrades will give me the best return before selling?</div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Connect me with a top agent who knows my area</div></div>
  </div>
  </div>
 </section>
@@ -580,7 +609,7 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
 </section>
 
 <!-- INVITATION CTA -->
-<section class="appstore-cta">
+<section class="appstore-cta" id="invite">
  <div class="appstore-cta-inner">
  <div class="appstore-cta-text">
  <h2 style="white-space:nowrap;">Bowerbird is live. Access is limited.</h2>
@@ -630,24 +659,30 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
 <section style="padding:80px 24px;background:var(--white);text-align:center;border-top:1px solid var(--gray-100);">
  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">How it works</p>
  <h2 style="font-size:32px;font-weight:600;color:var(--gray-900);margin-bottom:56px;letter-spacing:-0.5px;">Three steps. Zero headaches.</h2>
- <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;">
- <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
- <img src="assets/images/1.png" alt="Talk to Bowerbird" style="width:100%;max-width:240px;height:auto;margin:0 auto 20px;display:block;">
+ <div style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+ <div style="padding:0 24px;text-align:center;">
+ <img src="assets/images/1.png" alt="Talk to Bowerbird" style="width:100%;max-width:280px;height:auto;margin:0 auto 12px;display:block;">
+ <div style="max-width:240px;margin:0 auto;">
  <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 01</div>
  <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Talk to Bowerbird</h3>
  <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Describe what you want — your dream, your goals, your questions. Voice or text, no filters needed.</p>
  </div>
- <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
- <img src="assets/images/2.png" alt="Get smart matches" style="width:100%;max-width:240px;height:auto;margin:0 auto 20px;display:block;">
+ </div>
+ <div style="padding:0 24px;text-align:center;">
+ <img src="assets/images/2.png" alt="Get smart matches" style="width:100%;max-width:280px;height:auto;margin:0 auto 12px;display:block;">
+ <div style="max-width:240px;margin:0 auto;">
  <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 02</div>
  <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Get smart matches &amp; true insights</h3>
  <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Bowerbird finds homes that actually fit, flags the risks, and tells you things most agents won't.</p>
  </div>
- <div style="padding:0 40px;text-align:center;">
- <img src="assets/images/3.png" alt="Close with a pro" style="width:100%;max-width:240px;height:auto;margin:0 auto 20px;display:block;">
+ </div>
+ <div style="padding:0 24px;text-align:center;">
+ <img src="assets/images/3.png" alt="Close with a pro" style="width:100%;max-width:280px;height:auto;margin:0 auto 12px;display:block;">
+ <div style="max-width:240px;margin:0 auto;">
  <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 03</div>
  <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Close with a pro</h3>
  <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">When you're ready, we pair you with a top vetted local agent to take you from offer to keys.</p>
+ </div>
  </div>
  </div>
 </section>
@@ -662,62 +697,35 @@ footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
  </div>
 </section>
 
-<!-- COMING SOON TEASER -->
-<section style="padding:48px 24px;text-align:center;">
- <p style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:12px;">Coming soon</p>
- <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;font-size:13px;color:var(--gray-400);">
- <span>Submit offers from the app</span>
- <span style="color:var(--gray-200);">·</span>
- <span>Bid on unlisted properties</span>
- <span style="color:var(--gray-200);">·</span>
- <span>AI-powered investment deals</span>
- </div>
-</section>
-
 <footer>
  <div class="footer-main">
-  <div class="footer-left">
+  <div class="footer-brand">
    <div class="footer-logo">
     <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 0 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
     <span class="footer-logo-text">bowerbird</span>
    </div>
-   <p class="footer-tagline">Your Best Friend in Real Estate</p>
-   <div class="footer-contact">
-    <a href="mailto:hello@rockhood.ai">hello@rockhood.ai</a>
-    <a href="tel:4254655032">(425) 465-5032</a>
-    <span>500 108th Ave NE Unit 1100, Bellevue, WA 98004</span>
-   </div>
+   <span class="footer-tagline">Your AI real estate agent.</span>
+  </div>
+  <div class="footer-contact-inline">
+   <a href="mailto:hello@rockhood.ai">hello@rockhood.ai</a>
+   <span class="sep">·</span>
+   <a href="tel:4254655032">(425) 465-5032</a>
+   <span class="sep">·</span>
+   <span>500 108th Ave NE Unit 1100, Bellevue, WA 98004</span>
+  </div>
+  <div class="footer-right">
    <div class="footer-social">
     <a href="https://x.com/rockhoodai" target="_blank" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
     <a href="https://www.linkedin.com/company/rockhood" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
     <a href="https://instagram.com/rockhoodai" target="_blank" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
    </div>
-   <a href="https://www.nvidia.com/en-us/startups/" target="_blank" style="display:inline-block;opacity:0.55;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.55">
-    <img src="assets/images/nvidia.png" alt="NVIDIA Inception Member" style="height:32px;width:auto;">
+   <a href="https://www.nvidia.com/en-us/startups/" target="_blank" class="footer-nvidia">
+    <img src="assets/images/nvidia.png" alt="NVIDIA Inception Member">
    </a>
-  </div>
-  <div class="footer-col">
-   <h4>Product</h4>
-   <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank">Download for iOS</a>
-   <a href="#how-it-works">How it works</a>
-   <a href="#why-bowerbird">Why Bowerbird</a>
-   <a href="#invite">Get Access</a>
-  </div>
-  <div class="footer-col">
-   <h4>Company</h4>
-   <a href="https://rockhood.ai" target="_blank">About Rockhood</a>
-   <a href="https://rockhood.ai" target="_blank">Careers</a>
-   <a href="mailto:hello@rockhood.ai">Contact Us</a>
-   <a href="https://rockhood.ai/privacy" target="_blank">Privacy Policy</a>
-   <a href="https://rockhood.ai/terms" target="_blank">Terms of Service</a>
-  </div>
-  <div class="footer-col">
-   <h4>Legal</h4>
-   <p style="font-size:11px;color:var(--gray-400);line-height:1.7;font-weight:300;">Bowerbird is built by Rockhood, Inc.<br>Licensed real estate brokerage<br>in WA, CA, FL &amp; TX.</p>
   </div>
  </div>
  <div class="footer-bottom">
-  <span>© 2026 Rockhood, Inc. All rights reserved.</span>
+  <span>© 2026 Rockhood, Inc. All rights reserved. &nbsp;·&nbsp; Licensed real estate brokerage in WA, CA, FL &amp; TX.</span>
   <div style="display:flex;gap:20px;">
    <a href="https://rockhood.ai/privacy" target="_blank">Privacy</a>
    <a href="https://rockhood.ai/terms" target="_blank">Terms</a>
@@ -767,20 +775,53 @@ function resumeBubbles() {
  setTimeout(() =>{ if (bubblesActive) showNextBubble(); }, 800);
 }
 
+const heroBgFade = document.querySelector('.hero-bg-fade');
+const heroEl = document.querySelector('.hero');
+
+// Detect when dark sections are under the nav, invert nav colors
+const darkSections = document.querySelectorAll('.appstore-cta');
+const NAV_H = 64;
+function checkNavOnDark() {
+ let over = false;
+ darkSections.forEach(s =>{
+ const r = s.getBoundingClientRect();
+ if (r.top < NAV_H && r.bottom > 0) over = true;
+ });
+ // Also treat the hero as dark while it's focused (overlay is active behind the nav)
+ if (heroEl.classList.contains('focused')) {
+ const r = heroEl.getBoundingClientRect();
+ if (r.top < NAV_H && r.bottom > 0) over = true;
+ }
+ document.body.classList.toggle('nav-on-dark', over);
+}
+window.addEventListener('scroll', checkNavOnDark, { passive: true });
+window.addEventListener('resize', checkNavOnDark);
+checkNavOnDark();
+
 function setFocused(on) {
  if (on) {
  heroBg.classList.add('focused');
+ heroBgFade.classList.add('focused');
+ heroEl.classList.add('focused');
+ document.body.classList.add('hero-focused');
  pauseBubbles();
  } else {
  heroBg.classList.remove('focused');
+ heroBgFade.classList.remove('focused');
+ heroEl.classList.remove('focused');
+ document.body.classList.remove('hero-focused');
  resumeBubbles();
  }
+ checkNavOnDark();
 }
+
+const questionsArea = document.querySelector('.questions-area');
 
 function closeAllTabs() {
  activeCat = null;
  document.querySelectorAll('.cat-tab').forEach(t =>t.classList.remove('active'));
  document.querySelectorAll('.questions-panel').forEach(p =>p.classList.remove('open'));
+ questionsArea.classList.remove('has-open');
  setFocused(false);
 }
 
@@ -794,6 +835,7 @@ function toggleCat(btn) {
  document.querySelectorAll('.cat-tab').forEach(t =>t.classList.remove('active'));
  btn.classList.add('active');
  document.querySelectorAll('.questions-panel').forEach(p =>p.classList.remove('open'));
+ questionsArea.classList.add('has-open');
  const target = document.getElementById('panel-' + cat);
  if (target) requestAnimationFrame(() =>target.classList.add('open'));
  setFocused(true);
@@ -877,6 +919,14 @@ dots.forEach(d =>{
  d.addEventListener('click', () =>{
  const idx = parseInt(d.dataset.i);
  cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+ });
+});
+
+// Card clicks scroll to center
+cards.forEach(card =>{
+ card.style.cursor = 'pointer';
+ card.addEventListener('click', () =>{
+ card.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
  });
 });
 
