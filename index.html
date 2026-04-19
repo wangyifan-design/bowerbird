@@ -7,42 +7,42 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --white: #FFFFFF;
-  --bg: #FFFFFF;
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB;
-  --gray-400: #9CA3AF;
-  --gray-500: #6B7280;
-  --gray-600: #4B5563;
-  --gray-800: #1F2937;
-  --gray-900: #111827;
-  --blue: #095BD9;
-  --blue-light: #EBF1FC;
-  --blue-50: #F0F5FF;
-  --rose: #DB3598;
-  --olive: #4A7A52;
+ --white: #FFFFFF;
+ --bg: #FFFFFF;
+ --gray-50: #F9FAFB;
+ --gray-100: #F3F4F6;
+ --gray-200: #E5E7EB;
+ --gray-300: #D1D5DB;
+ --gray-400: #9CA3AF;
+ --gray-500: #6B7280;
+ --gray-600: #4B5563;
+ --gray-800: #1F2937;
+ --gray-900: #111827;
+ --blue: #095BD9;
+ --blue-light: #EBF1FC;
+ --blue-50: #F0F5FF;
+ --rose: #DB3598;
+ --olive: #4A7A52;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: var(--gray-900);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+ font-family: 'Poppins', sans-serif;
+ background: var(--bg);
+ color: var(--gray-900);
+ overflow-x: hidden;
+ -webkit-font-smoothing: antialiased;
 }
 
 /* ===== NAV ===== */
 nav {
-  position: fixed; top: 0; width: 100%; z-index: 100;
-  padding: 0 48px; height: 64px;
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--gray-100);
+ position: fixed; top: 0; width: 100%; z-index: 100;
+ padding: 0 48px; height: 64px;
+ display: flex; justify-content: space-between; align-items: center;
+ background: rgba(255,255,255,0.85);
+ backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+ border-bottom: 1px solid var(--gray-100);
 }
 .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--gray-900); }
 .logo svg { width: 28px; height: 29px; }
@@ -58,16 +58,16 @@ nav {
 
 /* ===== HERO ===== */
 .hero {
-  display: flex; flex-direction: column; align-items: center;
-  padding: 140px 24px 80px; text-align: center;
-  position: relative; min-height: 100vh;
-  overflow: hidden;
+ display: flex; flex-direction: column; align-items: center;
+ padding: 140px 24px 80px; text-align: center;
+ position: relative; min-height: 100vh;
+ overflow: hidden;
 }
 
 .hero-bg {
-  position: absolute; inset: 0; z-index: 0;
-  background: url('assets/images/hero-bg.jpg') center bottom / contain no-repeat;
-  }
+ position: absolute; inset: 0; z-index: 0;
+ background: url('assets/images/hero-bg.jpg') center bottom / 100% auto no-repeat;
+}
 
 .hero-bg { transition: opacity 0.5s ease; }
 .hero-bg.focused { opacity: 0.35; }
@@ -75,73 +75,35 @@ nav {
 
 
 .hero-bg-fade {
-  position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%);
+ position: absolute; inset: 0; z-index: 1;
+ background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.5) 55%, rgba(255,255,255,0) 75%);
 }
 
 
 
-.hero > *:not(.hero-bg):not(.hero-bg-fade):not(.bubble-layer) { position: relative; z-index: 3; }
+.hero >*:not(.hero-bg):not(.hero-bg-fade):not(.bubble-layer) { position: relative; z-index: 3; }
 
 .hero h1 { font-size: 44px; font-weight: 600; line-height: 1.2; color: var(--gray-900); margin-bottom: 12px; letter-spacing: -0.5px; }
 
 /* Bubble layer */
 .bubble-layer {
-  position: absolute; inset: 0; z-index: 2;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
+ position: absolute; bottom: 0; left: 0; right: 0;
+ z-index: 2; pointer-events: none;
+ transition: opacity 0.5s ease;
 }
 
 .bubble-layer.hidden { opacity: 0; }
 
 .speech-bubble {
   position: absolute;
-  background: white;
-  border: 1.5px solid var(--gray-800);
-  border-radius: 18px 18px 18px 4px;
-  padding: 10px 14px;
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--gray-800);
-  font-weight: 400;
-  max-width: 200px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   opacity: 0;
-  transform: translateY(8px) scale(0.9);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  /* hand-drawn feel */
-  border-radius: 20px 18px 20px 4px;
+  transform: translateY(8px) scale(0.92);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  filter: drop-shadow(0 4px 16px rgba(0,0,0,0.14));
 }
-
 .speech-bubble.show {
   opacity: 1;
   transform: translateY(0) scale(1);
-}
-
-.speech-bubble::before {
-  content: '';
-  position: absolute;
-  bottom: -7px; left: 12px;
-  width: 14px; height: 14px;
-  background: white;
-  border-bottom: 1.5px solid var(--gray-800);
-  border-left: 1.5px solid var(--gray-800);
-  transform: rotate(-45deg);
-  border-radius: 0 0 0 3px;
-}
-
-/* Wobbly hand-drawn border effect via box-shadow layers */
-.speech-bubble.right-tail {
-  border-radius: 18px 20px 4px 18px;
-}
-.speech-bubble.right-tail::before {
-  left: auto; right: 12px;
-  border: none;
-  border-bottom: 1.5px solid var(--gray-800);
-  border-right: 1.5px solid var(--gray-800);
-  border-left: none;
-  transform: rotate(45deg);
-  border-radius: 0 0 3px 0;
 }
 
 .input-container { width: 100%; max-width: 620px; margin: 0 auto 20px; }
@@ -180,48 +142,48 @@ nav {
 .carousel-wrap::-webkit-scrollbar { display: none; }
 
 .carousel-track {
-  display: inline-flex;
-  gap: 20px;
-  padding: 0 max(24px, calc((100vw - 280px) / 2));
+ display: inline-flex;
+ gap: 20px;
+ padding: 0 max(24px, calc((100vw - 280px) / 2));
 }
 
 
 /* Card image top area */
 .card-img-wrap {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  border-radius: 0;
-  background: #f5f5f5;
+ width: 100%;
+ aspect-ratio: 1 / 1;
+ overflow: hidden;
+ border-radius: 0;
+ background: #f5f5f5;
 }
 .card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+ width: 100%;
+ height: 100%;
+ object-fit: contain;
+ display: block;
 }
 
 .hl-card {
-  min-width: 280px; max-width: 280px;
-  flex-shrink: 0;
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--gray-50);
-  border: 1px solid var(--gray-100);
-  cursor: default;
-  scroll-snap-align: center;
-  scroll-snap-stop: always;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+ min-width: 280px; max-width: 280px;
+ flex-shrink: 0;
+ border-radius: 20px;
+ overflow: hidden;
+ background: var(--gray-50);
+ border: 1px solid var(--gray-100);
+ cursor: default;
+ scroll-snap-align: center;
+ scroll-snap-stop: always;
+ transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Compact phone */
 .phone-wrap { padding: 16px 16px 0; display: flex; justify-content: center; }
 .phone {
-  width: 170px; height: 340px;
-  background: white; border-radius: 24px;
-  border: 1.5px solid var(--gray-200);
-  overflow: hidden; position: relative;
-  box-shadow: 0 6px 24px rgba(0,0,0,0.06);
+ width: 170px; height: 340px;
+ background: white; border-radius: 24px;
+ border: 1.5px solid var(--gray-200);
+ overflow: hidden; position: relative;
+ box-shadow: 0 6px 24px rgba(0,0,0,0.06);
 }
 .notch { position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 56px; height: 18px; background: var(--gray-900); border-radius: 100px; z-index: 5; }
 .screen { width: 100%; height: 100%; display: flex; flex-direction: column; position: relative; overflow: hidden; }
@@ -257,8 +219,8 @@ nav {
 .s-home-cards-img { height: 80px; width: auto; flex-shrink: 0; }
 
 @keyframes cardsSlide {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+ 0% { transform: translateX(0); }
+ 100% { transform: translateX(-50%); }
 }
 
 .s-map { background: #EAE6DF; position: relative; }
@@ -296,8 +258,8 @@ nav {
 /* Image fade-in when active */
 .hl-card.active .card-img { animation: imgFadeIn 0.5s ease-out both; }
 @keyframes imgFadeIn {
-  from { opacity: 0.7; transform: scale(1.03); }
-  to { opacity: 1; transform: scale(1); }
+ from { opacity: 0.7; transform: scale(1.03); }
+ to { opacity: 1; transform: scale(1); }
 }
 
 /* ===== ACTIVE CARD ANIMATIONS (auto-triggered, not hover) ===== */
@@ -305,8 +267,8 @@ nav {
 /* Phone lift when active */
 .hl-card.active .phone { animation: phoneLift 0.6s ease-out both; }
 @keyframes phoneLift {
-  from { transform: translateY(12px); opacity: 0.7; }
-  to { transform: translateY(0); opacity: 1; }
+ from { transform: translateY(12px); opacity: 0.7; }
+ to { transform: translateY(0); opacity: 1; }
 }
 
 /* Voice */
@@ -372,18 +334,26 @@ nav {
 .btn-appstore-nav { display: inline-flex; align-items: center; }
 
 /* ===== FOOTER ===== */
-footer { border-top: 1px solid var(--gray-100); padding: 40px 48px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 40px; }
-.footer-left { display: flex; flex-direction: column; gap: 12px; }
-.footer-logo { display: flex; align-items: center; gap: 8px; }
+footer { border-top: 1px solid var(--gray-100); padding: 56px 48px 32px; }
+.footer-main { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 40px; }
+.footer-left { display: flex; flex-direction: column; gap: 0; }
+.footer-logo { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
 .footer-logo svg { width: 22px; height: 23px; }
 .footer-logo-text { font-size: 16px; font-weight: 600; color: var(--gray-900); }
-.footer-tagline { font-size: 13px; color: var(--gray-400); font-weight: 300; max-width: 260px; line-height: 1.6; }
-.footer-cols { display: flex; gap: 60px; }
-.footer-col h4 { font-size: 12px; font-weight: 600; color: var(--gray-900); margin-bottom: 12px; letter-spacing: 0.3px; text-transform: uppercase; }
-.footer-col a { display: block; font-size: 13px; color: var(--gray-400); text-decoration: none; font-weight: 300; margin-bottom: 8px; transition: color 0.2s; }
-.footer-col a:hover { color: var(--gray-600); }
-.footer-bottom { width: 100%; padding-top: 24px; border-top: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray-300); font-weight: 300; }
+.footer-tagline { font-size: 13px; color: var(--gray-500); font-weight: 400; max-width: 240px; line-height: 1.6; margin-bottom: 16px; }
+.footer-contact { display: flex; flex-direction: column; gap: 5px; margin-bottom: 20px; }
+.footer-contact a, .footer-contact span { font-size: 12px; color: var(--gray-400); text-decoration: none; line-height: 1.6; }
+.footer-contact a:hover { color: var(--gray-600); }
+.footer-social { display: flex; gap: 12px; margin-bottom: 20px; }
+.footer-social a { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--gray-200); color: var(--gray-400); text-decoration: none; transition: all 0.2s; }
+.footer-social a:hover { border-color: var(--gray-400); color: var(--gray-700); }
+.footer-social svg { width: 16px; height: 16px; }
+.footer-col h4 { font-size: 11px; font-weight: 600; color: var(--gray-900); margin-bottom: 14px; letter-spacing: 0.5px; text-transform: uppercase; }
+.footer-col a { display: block; font-size: 13px; color: var(--gray-400); text-decoration: none; font-weight: 300; margin-bottom: 9px; transition: color 0.2s; }
+.footer-col a:hover { color: var(--gray-700); }
+.footer-bottom { padding-top: 24px; border-top: 1px solid var(--gray-100); display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--gray-300); font-weight: 300; }
 .footer-bottom a { color: var(--gray-300); text-decoration: none; }
+.footer-bottom a:hover { color: var(--gray-500); }
 
 @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 .fade-in { animation: fadeUp 0.7s ease-out both; }
@@ -391,21 +361,21 @@ footer { border-top: 1px solid var(--gray-100); padding: 40px 48px; display: fle
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 768px) {
-  nav { padding: 0 20px; }
-  .nav-center { display: none; }
-  .hero { padding: 100px 20px 40px; }
-  .hero h1 { font-size: 30px; }
-  .input-container { max-width: 100%; }
-  .category-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
-  .questions-panel { grid-template-columns: 1fr; }
-  .highlights { padding: 60px 0 40px; }
-  .carousel-track { padding: 0 24px; }
-  .section-title { font-size: 26px; }
-  .hl-card { min-width: 260px; max-width: 260px; }
-  .phone { width: 150px; height: 300px; }
-  footer { padding: 32px 20px; }
-  .footer-cols { gap: 32px; }
-  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+ nav { padding: 0 20px; }
+ .nav-center { display: none; }
+ .hero { padding: 100px 20px 40px; }
+ .hero h1 { font-size: 30px; }
+ .input-container { max-width: 100%; }
+ .category-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+ .questions-panel { grid-template-columns: 1fr; }
+ .highlights { padding: 60px 0 40px; }
+ .carousel-track { padding: 0 24px; }
+ .section-title { font-size: 26px; }
+ .hl-card { min-width: 260px; max-width: 260px; }
+ .phone { width: 150px; height: 300px; }
+ footer { padding: 40px 20px 24px; }
+ .footer-main { grid-template-columns: 1fr 1fr; gap: 32px; }
+ .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
 }
 </style>
 </head>
@@ -413,271 +383,346 @@ footer { border-top: 1px solid var(--gray-100); padding: 40px 48px; display: fle
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="logo">
-    <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 1.33664e-06 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
-    <span class="logo-text">bowerbird</span>
-  </a>
-  <div class="nav-center"><a href="#">About</a><a href="#">Blog</a></div>
-  <div class="nav-right">
-    <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" class="btn-filled btn-appstore-nav"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right:6px;vertical-align:-2px;"><path d="M12.7 12.3c-.4.8-.8 1.2-1.5 1.8-.7.5-1.3.6-1.9.6-.5 0-1.1-.2-1.7-.5-.6-.3-1-.4-1.5-.4-.5 0-1 .1-1.6.4-.5.3-1 .5-1.3.5-.8 0-1.5-.5-2.2-1.6C.3 12 0 10.8 0 9.6c0-1.3.4-2.4 1.1-3.2.7-.8 1.6-1.2 2.6-1.2.6 0 1.2.2 1.8.5.5.3.9.5 1.1.5.2 0 .6-.2 1.2-.5.7-.3 1.3-.5 1.8-.4 1.4.1 2.4.8 3 2-1.2.7-1.8 1.8-1.7 3.1 0 1.3.7 2.3 1.8 2.9zM9.7 1c0 1-.4 1.9-1 2.5-.7.8-1.6 1.2-2.5 1.1 0-1 .4-1.9 1-2.6C7.9 1.3 8.8.8 9.6.6c0 .1.1.3.1.4z" fill="white"/></svg>Download App</a>
-  </div>
+ <a href="#" class="logo">
+ <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 1.33664e-06 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
+ <span class="logo-text">bowerbird</span>
+ </a>
+ <div class="nav-center"><a href="#">About</a><a href="#">Blog</a></div>
+ <div class="nav-right">
+ <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" class="btn-filled btn-appstore-nav"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="margin-right:6px;vertical-align:-2px;"><path d="M12.7 12.3c-.4.8-.8 1.2-1.5 1.8-.7.5-1.3.6-1.9.6-.5 0-1.1-.2-1.7-.5-.6-.3-1-.4-1.5-.4-.5 0-1 .1-1.6.4-.5.3-1 .5-1.3.5-.8 0-1.5-.5-2.2-1.6C.3 12 0 10.8 0 9.6c0-1.3.4-2.4 1.1-3.2.7-.8 1.6-1.2 2.6-1.2.6 0 1.2.2 1.8.5.5.3.9.5 1.1.5.2 0 .6-.2 1.2-.5.7-.3 1.3-.5 1.8-.4 1.4.1 2.4.8 3 2-1.2.7-1.8 1.8-1.7 3.1 0 1.3.7 2.3 1.8 2.9zM9.7 1c0 1-.4 1.9-1 2.5-.7.8-1.6 1.2-2.5 1.1 0-1 .4-1.9 1-2.6C7.9 1.3 8.8.8 9.6.6c0 .1.1.3.1.4z" fill="white"/></svg>Download App</a>
+ </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-bg-fade"></div>
+ <div class="hero-bg"></div>
+ <div class="hero-bg-fade"></div>
 
-  <!-- Speech bubbles from characters in the illustration -->
-  <div class="bubble-layer" id="bubbleLayer">
-    <div class="speech-bubble" id="bubble0" style="bottom:22%;left:8%;">
-      Oh man, also check the food scene nearby — I'm a total foodie, gotta have tons of restaurants, especially Chinese! 🍜
-    </div>
-    <div class="speech-bubble right-tail" id="bubble1" style="bottom:35%;right:12%;">
-      How long does it usually take from offer to closing? Asking for my sanity 😅
-    </div>
-    <div class="speech-bubble" id="bubble2" style="bottom:18%;left:32%;">
-      Close to San Francisco, good school district — that's the dream!
-    </div>
-    <div class="speech-bubble right-tail" id="bubble3" style="bottom:28%;right:30%;">
-      Parks nearby? We've got two little ones who need space to run around! 🌳
-    </div>
-    <div class="speech-bubble" id="bubble4" style="bottom:40%;left:18%;">
-      I want a place with a view — mountains, water, anything but a parking lot 🏔️
-    </div>
-    <div class="speech-bubble right-tail" id="bubble5" style="bottom:12%;right:8%;">
-      Is this neighborhood safe for evening walks? I like to jog after work 🏃‍♀️
-    </div>
-  </div>
+ <!-- Speech bubbles from characters in the illustration -->
+ <div class="bubble-layer" id="bubbleLayer">
+ <div class="speech-bubble" id="bubble0" style="position:absolute;bottom:62%;left:4%;">
+  <svg overflow="visible" width="195" height="125" viewBox="0 0 119 76" xmlns="http://www.w3.org/2000/svg">
+   <path d="M18.8351 65.185C8.60007 59.9353 -1.58792 47.9155 0.206952 35.8957C1.29014 28.6419 8.62128 14.6695 14.9293 10.6727C35.1874 -2.04197 63.1578 -0.726805 86.0817 1.28986C102.641 2.74675 121 16.5164 118.476 34.6347C118.35 35.0706 118.117 35.9831 117.963 36.3638C115.408 46.6285 107.045 50.789 101.491 58.5109C102.277 61.4801 103.211 64.3009 104.158 67.2182C99.1282 65.9291 97.3742 64.2416 93.2944 61.2326C87.7665 62.6282 81.7817 64.2164 76.1346 64.9922C60.4343 67.149 44.3955 67.5234 28.6484 66.3914C26.4545 67.7106 19.5088 73.6429 17.3345 75.4249C18.1489 71.7003 18.5076 68.9165 18.8351 65.185Z" fill="#7ACDBC" stroke="black" stroke-width="0.8" stroke-linejoin="round"/>
+   <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
+        <tspan x="58.0" y="21.4">Oh man, check the food</tspan>
+        <tspan x="58.0" y="30.5">scene! I'm a total</tspan>
+        <tspan x="58.0" y="39.6">foodie — gotta have</tspan>
+        <tspan x="58.0" y="48.7">tons of restaurants!</tspan>
+   </text>
+  </svg>
+ </div>
+ <div class="speech-bubble" id="bubble1" style="position:absolute;bottom:55%;right:5%;">
+  <svg overflow="visible" width="170" height="156" viewBox="0 0 94 86" xmlns="http://www.w3.org/2000/svg">
+   <path d="M53.585 0.0672297C58.862 -0.225936 64.1481 0.441336 69.1862 2.03689C87.1149 7.8688 97.3183 29.9196 91.6817 47.4467C88.0096 58.8644 76.4047 70.1697 65.942 75.4226C70.4574 80.1828 72.5734 81.8759 77.8156 85.5379C75.6005 84.971 72.4355 84.7564 70.0323 84.284C65.2103 83.3391 61.7091 81.6537 57.299 79.6363L54.3892 80.4866C50.2389 81.8529 46.4569 83.0071 42.079 83.3289C32.5991 84.0261 21.8623 82.2461 14.4855 75.7929C6.96727 68.8902 0.971613 58.3026 0.120649 48.0162C-1.79505 24.8566 19.4539 9.7246 38.8803 2.83187C43.9712 1.02563 48.2503 0.42526 53.585 0.0672297Z" fill="#BB88F3" stroke="black" stroke-width="0.8" stroke-linejoin="round"/>
+   <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
+        <tspan x="47.0" y="29.9">How long from offer</tspan>
+        <tspan x="47.0" y="39.0">to closing? Asking</tspan>
+        <tspan x="47.0" y="48.2">for my sanity</tspan>
+   </text>
+  </svg>
+ </div>
+ <div class="speech-bubble" id="bubble2" style="position:absolute;bottom:30%;left:22%;">
+  <svg overflow="visible" width="168" height="161" viewBox="0 0 91 87" xmlns="http://www.w3.org/2000/svg">
+   <path d="M3.45223 56.2187C2.14807 51.5459 -0.528984 36.0324 0.0920585 31.747C1.67289 20.8388 16.651 5.34183 27.4954 3.23277C42.0885 0.394677 62.9755 -2.71436 76.7463 4.10157C82.1346 6.76859 88.2199 16.0435 89.9992 21.6869C92.1012 31.4636 87.5531 49.7489 82.583 58.335C80.6904 61.8525 78.7727 64.8061 76.3723 67.9752C72.7587 72.7463 67.9004 72.7892 62.4618 73.5863L50.0075 75.3795C51.3494 80.635 52.1853 81.9992 54.8394 86.7999C46.1369 84.2283 44.9594 81.2637 39.4398 73.9803C35.4371 72.9803 26.2484 71.8081 23.4079 71.0297C19.8497 70.0547 6.06823 58.8787 3.45223 56.2187Z" fill="#5B6FD9" stroke="black" stroke-width="0.8" stroke-linejoin="round"/>
+   <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
+        <tspan x="45.0" y="26.9">Close to SF, good</tspan>
+        <tspan x="45.0" y="36.0">school district —</tspan>
+        <tspan x="45.0" y="45.2">that's the dream!</tspan>
+   </text>
+  </svg>
+ </div>
+ <div class="speech-bubble" id="bubble3" style="position:absolute;bottom:38%;right:18%;">
+  <svg overflow="visible" width="158" height="190" viewBox="0 0 83 100" xmlns="http://www.w3.org/2000/svg">
+   <path d="M35.8303 0.108505C47.3997 -0.697906 55.6013 3.12084 66.1046 7.24237C71.8388 9.49252 79.4459 14.2714 81.4582 20.3319C85.4588 32.3806 76.7596 49.8709 70.3425 59.8833C68.3609 62.975 65.4071 66.135 63.8501 69.2929C62.4751 72.0821 66.4403 77.3438 67.8131 80.8727C57.2679 75.8478 56.6167 77.4712 52.1435 87.6429C51.3773 89.3848 49.3632 91.867 48.0448 93.2845C34.9686 105.268 19.4619 96.8633 9.82974 85.4028C-2.97948 70.162 -1.7235 54.7799 4.83023 37.1141C10.4069 22.082 17.7455 2.72866 35.8303 0.108505Z" fill="#FAAE36" stroke="black" stroke-width="0.8" stroke-linejoin="round"/>
+   <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
+        <tspan x="41.0" y="35.9">Parks nearby? My</tspan>
+        <tspan x="41.0" y="45.0">kids need space</tspan>
+        <tspan x="41.0" y="54.2">to run around!</tspan>
+   </text>
+  </svg>
+ </div>
+ <div class="speech-bubble" id="bubble4" style="position:absolute;bottom:82%;left:3%;">
+  <svg overflow="visible" width="192" height="138" viewBox="0 0 114 82" xmlns="http://www.w3.org/2000/svg">
+   <path d="M57.2483 0C58.2438 0 59.2394 0.0127773 60.2347 0.0408681C76.7295 0.554164 96.8021 8.30213 108.735 20.0671C114.542 25.7925 113.832 36.0865 113.844 43.6991C113.77 49.473 111.875 57.4074 107.141 61.2048C91.2457 73.9453 65.9324 74.9208 46.7329 74.2058C43.9805 74.0679 39.1971 73.5214 36.654 74.3641C34.0962 75.2119 28.1811 82.5436 25.5345 81.9486C25.0718 80.2299 29.1657 72.4641 26.553 70.0406C25.5707 69.129 23.6514 68.0411 22.4226 67.4946C10.1913 62.045 0.254101 51.0768 0.00629659 37.1642C-0.232822 24.5922 6.35673 17.2835 16.6774 11.2338C29.8291 3.52412 42.1159 0.367734 57.2483 0Z" transform="translate(114,82) scale(-1,-1)"  fill="#81CF91" stroke="black" stroke-width="0.8" stroke-linejoin="round"/>
+   <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
+        <tspan x="56.0" y="23.4">I want a view —</tspan>
+        <tspan x="56.0" y="32.5">mountains, water,</tspan>
+        <tspan x="56.0" y="41.6">anything but a parking</tspan>
+        <tspan x="56.0" y="50.7">lot</tspan>
+   </text>
+  </svg>
+ </div>
+ <div class="speech-bubble" id="bubble5" style="position:absolute;bottom:8%;right:4%;">
+  <svg overflow="visible" width="178" height="190" viewBox="0 0 100 107" xmlns="http://www.w3.org/2000/svg">
+   <path d="M48.3956 0.0824857C95.2592 -2.35886 118.652 49.9794 79.6371 79.153C77.74 80.5703 69.2045 84.9296 68.5582 86.2932C65.4364 92.8767 77.4273 103.574 66.6685 106.94C63.8956 105.594 61.9101 103.814 59.5292 101.899C54.8354 98.0607 48.6851 92.6698 43.5402 89.5875C42.3045 88.8469 36.8725 87.8842 35.1207 87.4832C27.579 85.785 20.5661 82.2737 14.6911 77.2505C6.59633 70.2968 0.884014 60.3399 0.117022 49.5964C-0.738643 38.0179 3.12488 26.5875 10.8293 17.8997C20.4983 6.77577 33.8697 1.10652 48.3956 0.0824857Z" fill="#70ADE2" stroke="black" stroke-width="0.8" stroke-linejoin="round"/>
+   <text font-size="6.6" fill="white" font-weight="700" font-family="Poppins,sans-serif" text-anchor="middle">
+        <tspan x="50.0" y="38.9">Safe for evening</tspan>
+        <tspan x="50.0" y="48.0">walks? I love</tspan>
+        <tspan x="50.0" y="57.2">jogging after work</tspan>
+   </text>
+  </svg>
+ </div>
+ </div>
 
-  <h1 class="fade-in">Real estate finally has a brain.</h1>
-  <p class="hero-sub fade-in" style="animation-delay:0.05s;max-width:620px;font-size:17px;color:var(--gray-500);margin-top:8px;margin-bottom:28px;line-height:1.7;">Just talk to Bowerbird, your AI agent with real opinions.</p>
-  <div class="input-container fade-in" style="animation-delay:0.1s">
-    <div class="input-box">
-      <input type="text" class="input-field" placeholder="Ask me anything about buying, selling, or investing..." id="heroInput">
-      <button class="send-btn" title="Send">
-        <svg viewBox="0 0 18 18" fill="none"><path d="M3.5 9H14.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M10.5 5L14.5 9L10.5 13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-    </div>
-  </div>
+ <h1 class="fade-in">Real estate finally has a brain.</h1>
+ <p class="hero-sub fade-in" style="animation-delay:0.05s;max-width:620px;font-size:17px;color:var(--gray-500);margin-top:8px;margin-bottom:28px;line-height:1.7;">Just talk to Bowerbird, your AI agent with real opinions.</p>
+ <div class="input-container fade-in" style="animation-delay:0.1s">
+ <div class="input-box">
+ <input type="text" class="input-field" placeholder="Ask me anything about buying, selling, or investing..." id="heroInput">
+ <button class="send-btn" title="Send">
+ <svg viewBox="0 0 18 18" fill="none"><path d="M3.5 9H14.5" stroke="white" stroke-width="1.6" stroke-linecap="round"/><path d="M10.5 5L14.5 9L10.5 13" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+ </button>
+ </div>
+ </div>
 
-  <div class="category-tabs fade-in" style="animation-delay:0.15s">
-    <button class="cat-tab" data-cat="starter" onclick="toggleCat(this)"><span class="cat-icon">🔑</span> First Home</button>
-    <button class="cat-tab" data-cat="family" onclick="toggleCat(this)"><span class="cat-icon">👨‍👩‍👧</span> Growing Family</button>
-    <button class="cat-tab" data-cat="investor" onclick="toggleCat(this)"><span class="cat-icon">📈</span> Building Wealth</button>
-    <button class="cat-tab" data-cat="seller" onclick="toggleCat(this)"><span class="cat-icon">🏡</span> Ready to Sell</button>
-  </div>
+ <div class="category-tabs fade-in" style="animation-delay:0.15s">
+ <button class="cat-tab" data-cat="starter" onclick="toggleCat(this)"><span class="cat-icon"></span>First Home</button>
+ <button class="cat-tab" data-cat="family" onclick="toggleCat(this)"><span class="cat-icon"></span>Growing Family</button>
+ <button class="cat-tab" data-cat="investor" onclick="toggleCat(this)"><span class="cat-icon"></span>Building Wealth</button>
+ <button class="cat-tab" data-cat="seller" onclick="toggleCat(this)"><span class="cat-icon"></span>Ready to Sell</button>
+ </div>
 
-  <div class="questions-area fade-in" style="animation-delay:0.2s">
-    <!-- First-time buyer -->
-    <div class="questions-panel" id="panel-starter">
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">I've never bought a home before — where do I even start?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What can I actually afford on a $120k household income?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which neighborhoods in Seattle are best for young professionals?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Show me starter homes under $650k with a short commute</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-    </div>
+ <div class="questions-area fade-in" style="animation-delay:0.2s">
+ <!-- First-time buyer -->
+ <div class="questions-panel" id="panel-starter">
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">I've never bought a home before — where do I even start?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What can I actually afford on a $120k household income?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which neighborhoods in Seattle are best for young professionals?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Show me starter homes under $650k with a short commute</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ </div>
 
-    <!-- Growing family -->
-    <div class="questions-panel" id="panel-family">
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">We need more space — 4 bed homes near top-rated schools?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Compare Ballard vs Kirkland vs Bothell for families</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the best time to sell our condo and upgrade?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Homes with a big backyard and a park within walking distance</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-    </div>
+ <!-- Growing family -->
+ <div class="questions-panel" id="panel-family">
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">We need more space — 4 bed homes near top-rated schools?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Compare Ballard vs Kirkland vs Bothell for families</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the best time to sell our condo and upgrade?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Homes with a big backyard and a park within walking distance</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ </div>
 
-    <!-- Investor -->
-    <div class="questions-panel" id="panel-investor">
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which Seattle zip codes have the highest rental yield?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Find undervalued properties near upcoming transit projects</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Price-drop alerts for multi-family homes in the Bay Area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the cap rate trend in Capitol Hill over 3 years?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-    </div>
+ <!-- Investor -->
+ <div class="questions-panel" id="panel-investor">
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Which Seattle zip codes have the highest rental yield?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Find undervalued properties near upcoming transit projects</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Price-drop alerts for multi-family homes in the Bay Area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's the cap rate trend in Capitol Hill over 3 years?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ </div>
 
-    <!-- Seller -->
-    <div class="questions-panel" id="panel-seller">
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's my home worth right now? Give me an honest estimate.</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">When is the best time to list in my neighborhood?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What upgrades will give me the best return before selling?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-      <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Connect me with a top agent who knows my area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
-    </div>
-  </div>
+ <!-- Seller -->
+ <div class="questions-panel" id="panel-seller">
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What's my home worth right now? Give me an honest estimate.</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">When is the best time to list in my neighborhood?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">What upgrades will give me the best return before selling?</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ <div class="q-card" onclick="fillQ(this)"><div class="q-card-text">Connect me with a top agent who knows my area</div><div class="q-card-arrow"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 8h10M9 5l3 3-3 3"/></svg></div></div>
+ </div>
+ </div>
 </section>
 
 <!-- HIGHLIGHTS -->
 <section class="highlights" id="highlightsSection">
-  <div class="highlights-inner">
-  <div class="highlights-header reveal">
-    <p class="section-label">Why Bowerbird</p>
-    <h2 class="section-title">Not your parents' home search.</h2>
-  </div>
+ <div class="highlights-inner">
+ <div class="highlights-header reveal">
+ <p class="section-label">Why Bowerbird</p>
+ <h2 class="section-title">Not your parents' home search.</h2>
+ </div>
 
-  <div class="carousel-wrap">
-    <div class="carousel-track" id="carouselTrack">
-            <!-- 1 Always On Your Side -->
-      <div class="hl-card">
-        <div class="card-img-wrap">
-          <img src="assets/images/card-01.png" alt="" class="card-img">
-        </div>
-        <div class="hl-info"><h3>Always on your side</h3><p>Backed by 15+ data layers — schools, commute, crime, flood zones, price trends, and more. So you make decisions with full confidence, not gut feelings.</p></div>
-      </div>
+ <div class="carousel-wrap">
+ <div class="carousel-track" id="carouselTrack">
+ <!-- 1 Always On Your Side -->
+ <div class="hl-card">
+ <div class="card-img-wrap">
+ <img src="assets/images/card-01.png" alt="" class="card-img">
+ </div>
+ <div class="hl-info"><h3>Always on your side</h3><p>Backed by 15+ data layers — schools, commute, crime, flood zones, price trends, and more. So you make decisions with full confidence, not gut feelings.</p></div>
+ </div>
 
 <!-- 2 Just Talk -->
-      <div class="hl-card">
-        <div class="card-img-wrap">
-          <img src="assets/images/card-02.png" alt="" class="card-img">
-        </div>
-        <div class="hl-info"><h3>Knows your world</h3><p>Bowerbird remembers your priorities, learns your taste, and gets sharper the more you talk. It grows with you — from first search to closing day.</p></div>
-      </div>
+ <div class="hl-card">
+ <div class="card-img-wrap">
+ <img src="assets/images/card-02.png" alt="" class="card-img">
+ </div>
+ <div class="hl-info"><h3>Knows your world</h3><p>Bowerbird remembers your priorities, learns your taste, and gets sharper the more you talk. It grows with you — from first search to closing day.</p></div>
+ </div>
 
-      <!-- 3 Better Understanding -->
-      <div class="hl-card">
-        <div class="card-img-wrap">
-          <img src="assets/images/card-03.png" alt="" class="card-img">
-        </div>
-        <div class="hl-info"><h3>Just talk, on the go</h3><p>Voice-first, mobile-first. Ask a question on your commute, get an answer with context. Like texting a friend who happens to know everything about real estate.</p></div>
-      </div>
+ <!-- 3 Better Understanding -->
+ <div class="hl-card">
+ <div class="card-img-wrap">
+ <img src="assets/images/card-03.png" alt="" class="card-img">
+ </div>
+ <div class="hl-info"><h3>Just talk, on the go</h3><p>Voice-first, mobile-first. Ask a question on your commute, get an answer with context. Like texting a friend who happens to know everything about real estate.</p></div>
+ </div>
 
-      <!-- 4 Proactive & Opinionated -->
-      <div class="hl-card">
-        <div class="card-img-wrap">
-          <img src="assets/images/card-04.png" alt="" class="card-img">
-        </div>
-        <div class="hl-info"><h3>Proactive, with real opinions</h3><p>Bowerbird doesn't just answer — it flags risks, spots hidden value, and tells you what it'd actually do. No sugarcoating. No commission bias.</p></div>
-      </div>
+ <!-- 4 Proactive & Opinionated -->
+ <div class="hl-card">
+ <div class="card-img-wrap">
+ <img src="assets/images/card-04.png" alt="" class="card-img">
+ </div>
+ <div class="hl-info"><h3>Proactive, with real opinions</h3><p>Bowerbird doesn't just answer — it flags risks, spots hidden value, and tells you what it'd actually do. No sugarcoating. No commission bias.</p></div>
+ </div>
 
-      <!-- 5 Closes the Deal -->
-      <div class="hl-card">
-        <div class="card-img-wrap">
-          <img src="assets/images/card-05.png" alt="" class="card-img">
-        </div>
-        <div class="hl-info"><h3>From search to keys</h3><p>When you're ready, we connect you with top 3% local agents — vetted experts with real closing track records. Finds the home and closes the deal.</p></div>
-      </div>
-    </div>
-  </div>
+ <!-- 5 Closes the Deal -->
+ <div class="hl-card">
+ <div class="card-img-wrap">
+ <img src="assets/images/card-05.png" alt="" class="card-img">
+ </div>
+ <div class="hl-info"><h3>From search to keys</h3><p>When you're ready, we connect you with top 3% local agents — vetted experts with real closing track records. Finds the home and closes the deal.</p></div>
+ </div>
+ </div>
+ </div>
 
-  <div class="carousel-dots" id="carouselDots">
-    <div class="c-dot active" data-i="0"></div>
-    <div class="c-dot" data-i="1"></div>
-    <div class="c-dot" data-i="2"></div>
-    <div class="c-dot" data-i="3"></div>
-    <div class="c-dot" data-i="4"></div>
-  </div><!-- carousel-dots -->
-  </div><!-- highlights-inner -->
+ <div class="carousel-dots" id="carouselDots">
+ <div class="c-dot active" data-i="0"></div>
+ <div class="c-dot" data-i="1"></div>
+ <div class="c-dot" data-i="2"></div>
+ <div class="c-dot" data-i="3"></div>
+ <div class="c-dot" data-i="4"></div>
+ </div><!-- carousel-dots -->
+ </div><!-- highlights-inner -->
 </section>
 
 <!-- INVITATION CTA -->
 <section class="appstore-cta">
-  <div class="appstore-cta-inner">
-    <div class="appstore-cta-text">
-      <h2 style="white-space:nowrap;">Bowerbird is live. Access is limited.</h2>
-      <p>We're letting people in gradually to keep the experience great. Drop your email for an invite — or grab it on the App Store with your access code.</p>
-    </div>
-    <div class="invite-form">
-      <input type="email" class="invite-input" placeholder="you@example.com" id="inviteEmail">
-      <button class="invite-btn" onclick="submitInvite()">Request Invite</button>
-    </div>
-    <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:12px;">
-      <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);color:white;text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.81-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        Download on iOS
-      </a>
-    </div>
-    <p class="invite-note" id="inviteNote"></p>
-  </div>
+ <div class="appstore-cta-inner">
+ <div class="appstore-cta-text">
+ <h2 style="white-space:nowrap;">Bowerbird is live. Access is limited.</h2>
+ <p>We're letting people in gradually to keep the experience great. Drop your email for an invite — or grab it on the App Store with your access code.</p>
+ </div>
+ <div class="invite-form">
+ <input type="email" class="invite-input" placeholder="you@example.com" id="inviteEmail">
+ <button class="invite-btn" onclick="submitInvite()">Request Invite</button>
+ </div>
+ <div style="margin-top:16px;display:flex;align-items:center;justify-content:center;gap:12px;">
+ <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:10px 22px;border-radius:10px;border:1px solid rgba(255,255,255,0.25);color:white;text-decoration:none;font-size:13px;font-weight:500;transition:all 0.2s;">
+ <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.81-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+ Download on iOS
+ </a>
+ </div>
+ <p class="invite-note" id="inviteNote"></p>
+ </div>
 </section>
 
 <!-- SOCIAL PROOF STRIP -->
 <section style="padding:40px 24px;background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100);">
-  <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;">
-    <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
-      <div style="font-size:22px;margin-bottom:6px;">🏛️</div>
-      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Rockhood</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Licensed brokerage<br>WA · CA · FL · TX</div>
-    </div>
-    <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
-      <div style="font-size:22px;margin-bottom:6px;">🤝</div>
-      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Top 3%</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Vetted local agents<br>backing every deal</div>
-    </div>
-    <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
-      <div style="font-size:22px;margin-bottom:6px;">💬</div>
-      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">1,000+</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">People getting<br>honest answers</div>
-    </div>
-    <div style="padding:0 24px;">
-      <div style="font-size:22px;margin-bottom:6px;">❤️</div>
-      <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">150+</div>
-      <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Happy clients<br>closed with us</div>
-    </div>
-  </div>
+ <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;">
+ <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+ <div style="font-size:22px;margin-bottom:6px;"></div>
+ <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Rockhood</div>
+ <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Licensed brokerage<br>WA · CA · FL · TX</div>
+ </div>
+ <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+ <div style="font-size:22px;margin-bottom:6px;"></div>
+ <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Top 3%</div>
+ <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Vetted local agents<br>backing every deal</div>
+ </div>
+ <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+ <div style="font-size:22px;margin-bottom:6px;"></div>
+ <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">1,000+</div>
+ <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">People getting<br>honest answers</div>
+ </div>
+ <div style="padding:0 24px;">
+ <div style="font-size:22px;margin-bottom:6px;"></div>
+ <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">150+</div>
+ <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Happy clients<br>closed with us</div>
+ </div>
+ </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section style="padding:80px 24px;background:var(--white);text-align:center;border-top:1px solid var(--gray-100);">
-  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">How it works</p>
-  <h2 style="font-size:32px;font-weight:600;color:var(--gray-900);margin-bottom:56px;letter-spacing:-0.5px;">Three steps. Zero headaches.</h2>
-  <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;">
-    <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
-      <div style="width:52px;height:52px;border-radius:14px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;">💬</div>
-      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 01</div>
-      <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Talk to Bowerbird</h3>
-      <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Describe what you want — your dream, your goals, your questions. Voice or text, no filters needed.</p>
-    </div>
-    <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
-      <div style="width:52px;height:52px;border-radius:14px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;">🎯</div>
-      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 02</div>
-      <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Get smart matches &amp; true insights</h3>
-      <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Bowerbird finds homes that actually fit, flags the risks, and tells you things most agents won't.</p>
-    </div>
-    <div style="padding:0 40px;text-align:center;">
-      <div style="width:52px;height:52px;border-radius:14px;background:var(--blue-light);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:22px;">🔑</div>
-      <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 03</div>
-      <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Close with a pro</h3>
-      <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">When you're ready, we pair you with a top vetted local agent to take you from offer to keys.</p>
-    </div>
-  </div>
+ <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">How it works</p>
+ <h2 style="font-size:32px;font-weight:600;color:var(--gray-900);margin-bottom:56px;letter-spacing:-0.5px;">Three steps. Zero headaches.</h2>
+ <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:0;">
+ <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
+ <img src="assets/images/1.png" alt="Talk to Bowerbird" style="width:100%;max-width:240px;height:auto;margin:0 auto 20px;display:block;">
+ <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 01</div>
+ <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Talk to Bowerbird</h3>
+ <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Describe what you want — your dream, your goals, your questions. Voice or text, no filters needed.</p>
+ </div>
+ <div style="padding:0 40px;border-right:1px solid var(--gray-100);text-align:center;">
+ <img src="assets/images/2.png" alt="Get smart matches" style="width:100%;max-width:240px;height:auto;margin:0 auto 20px;display:block;">
+ <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 02</div>
+ <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Get smart matches &amp; true insights</h3>
+ <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">Bowerbird finds homes that actually fit, flags the risks, and tells you things most agents won't.</p>
+ </div>
+ <div style="padding:0 40px;text-align:center;">
+ <img src="assets/images/3.png" alt="Close with a pro" style="width:100%;max-width:240px;height:auto;margin:0 auto 20px;display:block;">
+ <div style="font-size:11px;font-weight:600;letter-spacing:1px;color:var(--blue);margin-bottom:8px;">STEP 03</div>
+ <h3 style="font-size:16px;font-weight:600;margin-bottom:10px;color:var(--gray-900);">Close with a pro</h3>
+ <p style="font-size:13px;color:var(--gray-500);line-height:1.7;">When you're ready, we pair you with a top vetted local agent to take you from offer to keys.</p>
+ </div>
+ </div>
 </section>
 
 <!-- FEATURED IN -->
 <section style="padding:40px 24px;text-align:center;background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100);">
-  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:20px;">Featured in</p>
-  <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;opacity:0.45;">
-    <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">Inman</span>
-    <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">GeekWire</span>
-    <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">NVIDIA</span>
-  </div>
+ <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:20px;">Featured in</p>
+ <div style="display:flex;justify-content:center;align-items:center;gap:48px;flex-wrap:wrap;opacity:0.45;">
+ <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">Inman</span>
+ <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">GeekWire</span>
+ <span style="font-size:22px;font-weight:700;color:var(--gray-800);letter-spacing:-0.5px;">NVIDIA</span>
+ </div>
 </section>
 
 <!-- COMING SOON TEASER -->
 <section style="padding:48px 24px;text-align:center;">
-  <p style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:12px;">Coming soon</p>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;font-size:13px;color:var(--gray-400);">
-    <span>Submit offers from the app</span>
-    <span style="color:var(--gray-200);">·</span>
-    <span>Bid on unlisted properties</span>
-    <span style="color:var(--gray-200);">·</span>
-    <span>AI-powered investment deals</span>
-  </div>
+ <p style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:12px;">Coming soon</p>
+ <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:12px 32px;font-size:13px;color:var(--gray-400);">
+ <span>Submit offers from the app</span>
+ <span style="color:var(--gray-200);">·</span>
+ <span>Bid on unlisted properties</span>
+ <span style="color:var(--gray-200);">·</span>
+ <span>AI-powered investment deals</span>
+ </div>
 </section>
 
 <footer>
+ <div class="footer-main">
   <div class="footer-left">
-    <div class="footer-logo">
-      <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 0 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
-      <span class="footer-logo-text">bowerbird</span>
-    </div>
-    <p class="footer-tagline">Your AI real estate agent.</p>
-    <p style="font-size:11px;color:var(--gray-400);margin-top:8px;line-height:1.5;">Bowerbird is built by Rockhood, Inc — Licensed real estate brokerage in WA, CA, FL &amp; TX.</p>
+   <div class="footer-logo">
+    <svg viewBox="0 0 64 66" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M35.2363 56.8512C36.2231 58.2253 37.534 59.2991 38.7342 60.2468C39.8352 61.1162 40.8468 61.8771 41.6969 62.7306C41.8919 62.9265 42.0731 63.1246 42.2416 63.3236C39.006 64.4474 35.5371 65.0602 31.9277 65.0602C30.8242 65.0602 29.7338 65.0036 28.6592 64.8943C28.9551 60.5584 30.6179 58.387 31.4888 57.8184C32.875 57.6487 34.1186 57.3146 35.2363 56.8512Z" fill="#095BD9"/><path d="M31.3253 0C49.291 0 63.8552 14.868 63.8554 32.8337C63.8554 45.9728 55.9179 57.4224 44.5771 62.4059C44.2217 61.9091 43.825 61.452 43.4053 61.0305C42.4253 60.0464 41.2573 59.1682 40.2273 58.3549C39.0977 57.4629 38.1142 56.6254 37.3882 55.7029C46.2547 49.7638 44.7579 33.9283 43.9465 31.5441C42.9884 28.7286 42.9881 21.2215 37.2388 16.5298C32.6391 12.7767 26.3779 14.9659 23.8222 16.5298C21.7539 16.6159 19.5448 17.3351 18.0723 18.0546C20.3271 18.0546 22.8974 19.5724 23.2257 20.2137C24.1838 22.0901 25.9488 23.5921 26.9072 24.5305C27.8655 25.4689 28.6131 29.6668 24.78 30.6052C20.9471 31.5438 18.0726 36.2363 18.0723 39.9896V61.9047C7.37854 56.7456 0 45.801 0 33.1325V3C0 1.34315 1.34315 0 3 0H31.3253Z" fill="#095BD9"/></svg>
+    <span class="footer-logo-text">bowerbird</span>
+   </div>
+   <p class="footer-tagline">Your Best Friend in Real Estate</p>
+   <div class="footer-contact">
+    <a href="mailto:hello@rockhood.ai">hello@rockhood.ai</a>
+    <a href="tel:4254655032">(425) 465-5032</a>
+    <span>500 108th Ave NE Unit 1100, Bellevue, WA 98004</span>
+   </div>
+   <div class="footer-social">
+    <a href="https://x.com/rockhoodai" target="_blank" title="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.261 5.632 5.903-5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <a href="https://www.linkedin.com/company/rockhood" target="_blank" title="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="https://instagram.com/rockhoodai" target="_blank" title="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+   </div>
+   <a href="https://www.nvidia.com/en-us/startups/" target="_blank" style="display:inline-block;opacity:0.55;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.55">
+    <img src="assets/images/nvidia.png" alt="NVIDIA Inception Member" style="height:32px;width:auto;">
+   </a>
   </div>
-  <div class="footer-cols">
-    <div class="footer-col"><h4>Product</h4><a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank">Download for iOS</a></div>
-    <div class="footer-col"><h4>Company</h4><a href="https://rockhood.ai" target="_blank">Rockhood</a></div>
-    <div class="footer-col"><h4>Connect</h4><a href="#">X</a><a href="#">LinkedIn</a><a href="#">Instagram</a><a href="#">Contact</a></div>
+  <div class="footer-col">
+   <h4>Product</h4>
+   <a href="https://apps.apple.com/us/app/bowerbird-ai-real-estate-agent/id6753778727" target="_blank">Download for iOS</a>
+   <a href="#how-it-works">How it works</a>
+   <a href="#why-bowerbird">Why Bowerbird</a>
+   <a href="#invite">Get Access</a>
   </div>
-  <div class="footer-bottom">
-    <span>© 2026 Rockhood, Inc. All rights reserved.</span>
-    <div style="display:flex;gap:20px;"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  <div class="footer-col">
+   <h4>Company</h4>
+   <a href="https://rockhood.ai" target="_blank">About Rockhood</a>
+   <a href="https://rockhood.ai" target="_blank">Careers</a>
+   <a href="mailto:hello@rockhood.ai">Contact Us</a>
+   <a href="https://rockhood.ai/privacy" target="_blank">Privacy Policy</a>
+   <a href="https://rockhood.ai/terms" target="_blank">Terms of Service</a>
   </div>
+  <div class="footer-col">
+   <h4>Legal</h4>
+   <p style="font-size:11px;color:var(--gray-400);line-height:1.7;font-weight:300;">Bowerbird is built by Rockhood, Inc.<br>Licensed real estate brokerage<br>in WA, CA, FL &amp; TX.</p>
+  </div>
+ </div>
+ <div class="footer-bottom">
+  <span>© 2026 Rockhood, Inc. All rights reserved.</span>
+  <div style="display:flex;gap:20px;">
+   <a href="https://rockhood.ai/privacy" target="_blank">Privacy</a>
+   <a href="https://rockhood.ai/terms" target="_blank">Terms</a>
+  </div>
+ </div>
 </footer>
 
 <script>
@@ -689,75 +734,89 @@ let bubbleTimer2 = null;
 
 const heroBg = document.querySelector('.hero-bg');
 const bubbleLayer = document.getElementById('bubbleLayer');
+
+// 让 bubble-layer 精确匹配插图区域（宽高比 6000/10070 = 0.5958）
+const ILL_RATIO = 6000 / 10070;
+function sizeBubbleLayer() {
+  const hero = document.querySelector('.hero');
+  const tabs = document.querySelector('.category-tabs');
+  const illH = Math.round(hero.offsetWidth * ILL_RATIO);
+  // 不能高于 hero 底部到 tabs 底部之间的空间
+  const tabsBottom = tabs ? tabs.getBoundingClientRect().bottom - hero.getBoundingClientRect().top : 0;
+  const maxH = hero.offsetHeight - tabsBottom - 8;
+  bubbleLayer.style.height = Math.min(illH, maxH) + 'px';
+}
+sizeBubbleLayer();
+window.addEventListener('resize', sizeBubbleLayer);
 const heroInput = document.getElementById('heroInput');
 
 function pauseBubbles() {
-  bubblesActive = false;
-  bubbleLayer.classList.add('hidden');
-  clearTimeout(bubbleTimer1);
-  clearTimeout(bubbleTimer2);
-  // Hide all visible bubbles
-  document.querySelectorAll('.speech-bubble').forEach(b => b.classList.remove('show'));
+ bubblesActive = false;
+ bubbleLayer.classList.add('hidden');
+ clearTimeout(bubbleTimer1);
+ clearTimeout(bubbleTimer2);
+ // Hide all visible bubbles
+ document.querySelectorAll('.speech-bubble').forEach(b =>b.classList.remove('show'));
 }
 
 function resumeBubbles() {
-  if (bubblesActive) return;
-  bubblesActive = true;
-  bubbleLayer.classList.remove('hidden');
-  // Restart bubble cycle after a short delay
-  setTimeout(() => { if (bubblesActive) showNextBubble(); }, 800);
+ if (bubblesActive) return;
+ bubblesActive = true;
+ bubbleLayer.classList.remove('hidden');
+ // Restart bubble cycle after a short delay
+ setTimeout(() =>{ if (bubblesActive) showNextBubble(); }, 800);
 }
 
 function setFocused(on) {
-  if (on) {
-    heroBg.classList.add('focused');
-    pauseBubbles();
-  } else {
-    heroBg.classList.remove('focused');
-    resumeBubbles();
-  }
+ if (on) {
+ heroBg.classList.add('focused');
+ pauseBubbles();
+ } else {
+ heroBg.classList.remove('focused');
+ resumeBubbles();
+ }
 }
 
 function closeAllTabs() {
-  activeCat = null;
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.questions-panel').forEach(p => p.classList.remove('open'));
-  setFocused(false);
+ activeCat = null;
+ document.querySelectorAll('.cat-tab').forEach(t =>t.classList.remove('active'));
+ document.querySelectorAll('.questions-panel').forEach(p =>p.classList.remove('open'));
+ setFocused(false);
 }
 
 function toggleCat(btn) {
-  const cat = btn.dataset.cat;
-  if (activeCat === cat) {
-    closeAllTabs();
-    return;
-  }
-  activeCat = cat;
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.questions-panel').forEach(p => p.classList.remove('open'));
-  const target = document.getElementById('panel-' + cat);
-  if (target) requestAnimationFrame(() => target.classList.add('open'));
-  setFocused(true);
+ const cat = btn.dataset.cat;
+ if (activeCat === cat) {
+ closeAllTabs();
+ return;
+ }
+ activeCat = cat;
+ document.querySelectorAll('.cat-tab').forEach(t =>t.classList.remove('active'));
+ btn.classList.add('active');
+ document.querySelectorAll('.questions-panel').forEach(p =>p.classList.remove('open'));
+ const target = document.getElementById('panel-' + cat);
+ if (target) requestAnimationFrame(() =>target.classList.add('open'));
+ setFocused(true);
 }
 
 function fillQ(card) {
-  const text = card.querySelector('.q-card-text').textContent.replace(/^🎙️\s*/, '').replace(/^"|"$/g, '');
-  heroInput.value = text;
-  heroInput.focus();
+ const text = card.querySelector('.q-card-text').textContent.replace(/^\s*/, '').replace(/^"|"$/g, '');
+ heroInput.value = text;
+ heroInput.focus();
 }
 
 // Click outside tabs/input to close
-document.addEventListener('click', (e) => {
-  if (!activeCat) return;
-  // If click is inside input-container, category-tabs, or questions-area, do nothing
-  if (e.target.closest('.input-container') || e.target.closest('.category-tabs') || e.target.closest('.questions-area')) return;
-  closeAllTabs();
+document.addEventListener('click', (e) =>{
+ if (!activeCat) return;
+ // If click is inside input-container, category-tabs, or questions-area, do nothing
+ if (e.target.closest('.input-container') || e.target.closest('.category-tabs') || e.target.closest('.questions-area')) return;
+ closeAllTabs();
 });
 
 // Input focus/blur
-heroInput.addEventListener('focus', () => setFocused(true));
-heroInput.addEventListener('blur', () => {
-  if (!activeCat) setFocused(false);
+heroInput.addEventListener('focus', () =>setFocused(true));
+heroInput.addEventListener('blur', () =>{
+ if (!activeCat) setFocused(false);
 });
 
 // ===== BUBBLE ANIMATION =====
@@ -766,18 +825,18 @@ const totalBubbles = allBubbles.length;
 let currentBubble = 0;
 
 function showNextBubble() {
-  if (!bubblesActive) return;
-  allBubbles[currentBubble].classList.add('show');
-  bubbleTimer1 = setTimeout(() => {
-    allBubbles[currentBubble].classList.remove('show');
-    currentBubble = (currentBubble + 1) % totalBubbles;
-    bubbleTimer2 = setTimeout(() => {
-      if (bubblesActive) showNextBubble();
-    }, 800);
-  }, 3500);
+ if (!bubblesActive) return;
+ allBubbles[currentBubble].classList.add('show');
+ bubbleTimer1 = setTimeout(() =>{
+ allBubbles[currentBubble].classList.remove('show');
+ currentBubble = (currentBubble + 1) % totalBubbles;
+ bubbleTimer2 = setTimeout(() =>{
+ if (bubblesActive) showNextBubble();
+ }, 800);
+ }, 6000);
 }
 
-setTimeout(() => { if (bubblesActive) showNextBubble(); }, 1500);
+setTimeout(() =>{ if (bubblesActive) showNextBubble(); }, 1500);
 
 // ===== HORIZONTAL CAROUSEL =====
 const wrap = document.querySelector('.carousel-wrap');
@@ -788,67 +847,67 @@ const cardCount = cards.length;
 let prevSnapIndex = -1;
 
 function updateActiveCard() {
-  const wrapRect = wrap.getBoundingClientRect();
-  const center = wrapRect.left + wrapRect.width / 2;
-  let closest = 0, minDist = Infinity;
-  cards.forEach((c, i) => {
-    const r = c.getBoundingClientRect();
-    const cardCenter = r.left + r.width / 2;
-    const dist = Math.abs(center - cardCenter);
-    if (dist < minDist) { minDist = dist; closest = i; }
-    // Scale & opacity by distance
-    const norm = Math.min(dist / (r.width * 1.5), 1);
-    c.style.transform = `scale(${1 - norm * 0.08})`;
-    c.style.opacity = 1 - norm * 0.6;
-  });
-  if (closest !== prevSnapIndex) {
-    prevSnapIndex = closest;
-    cards.forEach((c, i) => {
-      if (i === closest) { c.classList.remove('active'); void c.offsetWidth; c.classList.add('active'); }
-      else c.classList.remove('active');
-    });
-    dots.forEach((d, i) => d.classList.toggle('active', i === closest));
-  }
+ const wrapRect = wrap.getBoundingClientRect();
+ const center = wrapRect.left + wrapRect.width / 2;
+ let closest = 0, minDist = Infinity;
+ cards.forEach((c, i) =>{
+ const r = c.getBoundingClientRect();
+ const cardCenter = r.left + r.width / 2;
+ const dist = Math.abs(center - cardCenter);
+ if (dist < minDist) { minDist = dist; closest = i; }
+ // Scale & opacity by distance
+ const norm = Math.min(dist / (r.width * 1.5), 1);
+ c.style.transform = `scale(${1 - norm * 0.08})`;
+ c.style.opacity = 1 - norm * 0.6;
+ });
+ if (closest !== prevSnapIndex) {
+ prevSnapIndex = closest;
+ cards.forEach((c, i) =>{
+ if (i === closest) { c.classList.remove('active'); void c.offsetWidth; c.classList.add('active'); }
+ else c.classList.remove('active');
+ });
+ dots.forEach((d, i) =>d.classList.toggle('active', i === closest));
+ }
 }
 
 wrap.addEventListener('scroll', updateActiveCard, { passive: true });
 
 // Dot clicks scroll to card
-dots.forEach(d => {
-  d.addEventListener('click', () => {
-    const idx = parseInt(d.dataset.i);
-    cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-  });
+dots.forEach(d =>{
+ d.addEventListener('click', () =>{
+ const idx = parseInt(d.dataset.i);
+ cards[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+ });
 });
 
 // Init
-requestAnimationFrame(() => {
-  cards[0].classList.add('active');
-  dots[0].classList.add('active');
-  updateActiveCard();
+requestAnimationFrame(() =>{
+ cards[0].classList.add('active');
+ dots[0].classList.add('active');
+ updateActiveCard();
 });
 
 // Reveal
 const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+const obs = new IntersectionObserver((entries) =>{
+ entries.forEach(e =>{ if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.1 });
-reveals.forEach(el => obs.observe(el));
+reveals.forEach(el =>obs.observe(el));
 
 // ===== INVITATION FORM =====
 function submitInvite() {
-  const input = document.getElementById('inviteEmail');
-  const note = document.getElementById('inviteNote');
-  const email = input.value.trim();
-  if (!email || !email.includes('@') || !email.includes('.')) {
-    note.textContent = 'Please enter a valid email address.';
-    note.style.color = '#FF6B6B';
-    return;
-  }
-  note.style.color = 'rgba(255,255,255,0.8)';
-  note.textContent = '✓ You\'re on the list! We\'ll be in touch soon.';
-  input.value = '';
-  input.blur();
+ const input = document.getElementById('inviteEmail');
+ const note = document.getElementById('inviteNote');
+ const email = input.value.trim();
+ if (!email || !email.includes('@') || !email.includes('.')) {
+ note.textContent = 'Please enter a valid email address.';
+ note.style.color = '#FF6B6B';
+ return;
+ }
+ note.style.color = 'rgba(255,255,255,0.8)';
+ note.textContent = ' You\'re on the list! We\'ll be in touch soon.';
+ input.value = '';
+ input.blur();
 }
 </script>
 </body>
