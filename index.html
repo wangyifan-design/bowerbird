@@ -122,7 +122,10 @@ body.nav-on-dark .btn-filled svg path { fill: var(--gray-900); }
 .speech-bubble.show {
   opacity: 1;
   transform: translateY(0) scale(1);
+  pointer-events: auto;
+  cursor: pointer;
 }
+.speech-bubble.show:hover { transform: translateY(-3px) scale(1.03); }
 
 .input-container { width: 100%; max-width: 620px; margin: 0 auto 20px; }
 .input-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 999px; padding: 5px 5px 5px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s; display: flex; align-items: center; gap: 10px; }
@@ -847,6 +850,13 @@ function fillQ(card) {
  heroInput.focus();
 }
 
+function fillFromBubble(bubble) {
+ const tspans = bubble.querySelectorAll('text tspan');
+ const text = Array.from(tspans).map(t =>t.textContent.trim()).join(' ').replace(/\s+/g, ' ').replace(/\s*—\s*/g, ' — ').trim();
+ heroInput.value = text;
+ heroInput.focus();
+}
+
 // Click outside tabs/input to close
 document.addEventListener('click', (e) =>{
  if (!activeCat) return;
@@ -865,6 +875,14 @@ heroInput.addEventListener('blur', () =>{
 const allBubbles = document.querySelectorAll('.speech-bubble');
 const totalBubbles = allBubbles.length;
 let currentBubble = 0;
+
+// Click a visible bubble to fill the input with its text
+allBubbles.forEach(b =>{
+ b.addEventListener('click', (e) =>{
+ e.stopPropagation();
+ fillFromBubble(b);
+ });
+});
 
 function showNextBubble() {
  if (!bubblesActive) return;
