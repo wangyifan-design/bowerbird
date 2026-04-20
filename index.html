@@ -416,7 +416,10 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 48px 20px; }
  .hero { padding: 100px 20px 40px; }
  .hero h1 { font-size: 30px; }
  .input-container { max-width: 100%; }
- .category-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; }
+ .category-tabs { overflow-x: visible; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 0 8px; }
+ .cat-tab { font-size: 13px; padding: 7px 14px; }
+ .hero-bg { background-size: 180% auto; }
+ .bubble-layer { width: 180%; left: -40%; right: auto; }
  .questions-panel { grid-template-columns: 1fr 1fr; }
  .questions-area.has-open { height: 290px; }
  .highlights { padding: 60px 0 40px; }
@@ -786,7 +789,9 @@ const ILL_RATIO = 6000 / 10070;
 function sizeBubbleLayer() {
   const hero = document.querySelector('.hero');
   const tabs = document.querySelector('.category-tabs');
-  const illH = Math.round(hero.offsetWidth * ILL_RATIO);
+  // Use layer's actual client width so scaled (mobile 180%) sizing stays consistent with the bg image
+  const layerW = bubbleLayer.offsetWidth || hero.offsetWidth;
+  const illH = Math.round(layerW * ILL_RATIO);
   // 不能高于 hero 底部到 tabs 底部之间的空间
   const tabsBottom = tabs ? tabs.getBoundingClientRect().bottom - hero.getBoundingClientRect().top : 0;
   const maxH = hero.offsetHeight - tabsBottom - 8;
