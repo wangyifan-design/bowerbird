@@ -411,6 +411,11 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 48px 20px; }
  .section-title { font-size: 26px; }
  .hl-card { min-width: 260px; max-width: 260px; }
  .phone { width: 150px; height: 300px; }
+ .how-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+ .how-grid >div { padding: 0 !important; }
+ .social-proof-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+ .social-proof-item { padding: 0 !important; border-right: none !important; padding-bottom: 24px !important; border-bottom: 1px solid var(--gray-200); }
+ .social-proof-item:last-child { padding-bottom: 0 !important; border-bottom: none; }
  .supported-by { padding: 40px 20px 32px; }
  .supported-logos { gap: 36px; }
  .supported-logos img { height: 28px; }
@@ -647,23 +652,23 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 48px 20px; }
 
 <!-- SOCIAL PROOF STRIP -->
 <section style="padding:40px 24px;background:var(--gray-50);border-top:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100);">
- <div style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;">
- <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+ <div class="social-proof-grid" style="max-width:860px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center;">
+ <div class="social-proof-item" style="padding:0 24px;border-right:1px solid var(--gray-200);">
  <div style="font-size:22px;margin-bottom:6px;"></div>
  <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Rockhood</div>
  <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Licensed brokerage<br>WA · CA · FL · TX</div>
  </div>
- <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+ <div class="social-proof-item" style="padding:0 24px;border-right:1px solid var(--gray-200);">
  <div style="font-size:22px;margin-bottom:6px;"></div>
  <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">Top 3%</div>
  <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Vetted local agents<br>backing every deal</div>
  </div>
- <div style="padding:0 24px;border-right:1px solid var(--gray-200);">
+ <div class="social-proof-item" style="padding:0 24px;border-right:1px solid var(--gray-200);">
  <div style="font-size:22px;margin-bottom:6px;"></div>
  <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">1,000+</div>
  <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">People getting<br>honest answers</div>
  </div>
- <div style="padding:0 24px;">
+ <div class="social-proof-item" style="padding:0 24px;">
  <div style="font-size:22px;margin-bottom:6px;"></div>
  <div style="font-size:18px;font-weight:700;color:var(--gray-900);letter-spacing:-0.3px;">150+</div>
  <div style="font-size:12px;color:var(--gray-400);margin-top:4px;line-height:1.5;">Happy clients<br>closed with us</div>
@@ -675,7 +680,7 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 48px 20px; }
 <section style="padding:80px 24px;background:var(--white);text-align:center;border-top:1px solid var(--gray-100);">
  <p style="font-size:12px;text-transform:uppercase;letter-spacing:1.5px;color:var(--blue);margin-bottom:8px;">How it works</p>
  <h2 style="font-size:32px;font-weight:600;color:var(--gray-900);margin-bottom:56px;letter-spacing:-0.5px;">Three steps. Zero headaches.</h2>
- <div style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+ <div class="how-grid" style="max-width:980px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
  <div style="padding:0 24px;text-align:center;">
  <img src="assets/images/1.png" alt="Talk to Bowerbird" style="width:100%;max-width:280px;height:auto;margin:0 auto 12px;display:block;">
  <div style="max-width:240px;margin:0 auto;">
