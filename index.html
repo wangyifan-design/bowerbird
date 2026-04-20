@@ -419,7 +419,13 @@ footer { border-top: 1px solid var(--gray-100); padding: 28px 48px 20px; }
  .category-tabs { overflow-x: visible; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 0 8px; }
  .cat-tab { font-size: 13px; padding: 7px 14px; }
  .hero-bg { background-size: 180% auto; }
- .bubble-layer { width: 180%; left: -40%; right: auto; }
+ /* On mobile, shift bubbles inward so they stay within viewport after illustration scale */
+ #bubble0 { left: 18% !important; }
+ #bubble1 { right: 18% !important; }
+ #bubble2 { left: 28% !important; }
+ #bubble3 { right: 28% !important; }
+ #bubble4 { left: 18% !important; }
+ #bubble5 { right: 18% !important; }
  .questions-panel { grid-template-columns: 1fr 1fr; }
  .questions-area.has-open { height: 290px; }
  .highlights { padding: 60px 0 40px; }
