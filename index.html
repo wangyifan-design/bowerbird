@@ -69,10 +69,12 @@ nav {
 .hero-bg {
  position: absolute; inset: 0; z-index: 0;
  background: url('assets/images/hero-bg.jpg') center bottom / 100% auto no-repeat;
+ opacity: 0;
+ transform: translateY(24px);
+ transition: opacity 0.9s cubic-bezier(0.22, 0.61, 0.36, 1), transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
-
-.hero-bg { transition: opacity 0.5s ease; }
-.hero-bg.focused { opacity: 0.35; }
+.hero-bg.loaded { opacity: 1; transform: translateY(0); }
+.hero-bg.loaded.focused { opacity: 0.35; }
 
 
 
@@ -789,6 +791,16 @@ let bubbleTimer2 = null;
 
 const heroBg = document.querySelector('.hero-bg');
 const bubbleLayer = document.getElementById('bubbleLayer');
+
+// Fade + rise hero illustration once loaded
+(function preloadHeroBg() {
+ const img = new Image();
+ const reveal = () =>requestAnimationFrame(() =>heroBg.classList.add('loaded'));
+ img.onload = reveal;
+ img.onerror = reveal; // don't leave it invisible if the image fails
+ img.src = 'assets/images/hero-bg.jpg';
+ if (img.complete) reveal();
+})();
 
 // 让 bubble-layer 精确匹配插图区域（宽高比 6000/10070 = 0.5958）
 const ILL_RATIO = 6000 / 10070;
