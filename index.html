@@ -129,6 +129,9 @@ body.nav-on-dark .btn-filled svg path { fill: var(--gray-900); }
 }
 .speech-bubble.show:hover { transform: translateY(-3px) scale(1.03); }
 
+/* Bubble4 scales with illustration so its tail stays on the telescope character across widths */
+#bubble4 svg { width: clamp(120px, 13vw, 200px); height: auto; }
+
 .input-container { width: 100%; max-width: 620px; margin: 0 auto 20px; }
 .input-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: 999px; padding: 5px 5px 5px 22px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: border-color 0.2s, box-shadow 0.2s; display: flex; align-items: center; gap: 10px; }
 .input-box:focus-within { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(9,91,217,0.08); }
